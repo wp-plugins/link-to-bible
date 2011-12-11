@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Thomas Kuhlmann <thomas.kuhlmann@thk-systems.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Link To Bible Settings"
+msgstr ""
+
+msgid "The API-Key can be get %shere%s. You need to use the address of you blog (%s) as the domainname."
+msgstr ""
+
+msgid "Bible-Version"
+msgstr ""
+
+msgid "Attention: Some bible-versions may not contain the text of the whole bible."
+msgstr ""
+
+msgid "Submit Changes"
+msgstr ""
+
+msgid "Error while linking to bible"
+msgstr ""
+
