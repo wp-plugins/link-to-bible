@@ -3,7 +3,7 @@ Contributors: Thomas Kuhlmann
 Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 3.3.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
@@ -24,7 +24,7 @@ Bibleserver.com detected language-specifc the most common notations of bible-ref
 = Privacy =
 The following information is transmitted to bibleserver.com to add the links:
 - Your API-Key
-- The URL of your blob
+- The URL of your blog
 - The selected bible-translation
 - The language-code
 - The text of your post
@@ -34,7 +34,7 @@ The following information is transmitted to bibleserver.com to add the links:
 - It is published with the explicit permission of bibleserver.com (ERF Media e.V.)
 
 = Translation =
-Allthough the bible-versions at bibleserver.com are available in many different languages, this plugin itselfs is just available in english and german language. If you like to contribute a translation for another language, please contact <thomas@thkuhlmann.de> .
+Allthough the bible-versions at bibleserver.com are available in many different languages, the plugin itselfs is just available in english and german language. If you like to contribute a translation for another language, please contact <thomas@thkuhlmann.de> .
 
 == Installation ==
 
@@ -48,10 +48,12 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 = I have a question =
 If you have any issues with the plugin, please write to thomas@thkuhlmann.de (german or english).
 
-== Screenshots ==
-
 == Changelog ==
 
 = 1.0.0 =
 
 Initial version
+
+= 1.0.2 =
+
+Fix of some minor bugs
