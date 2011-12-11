@@ -9,7 +9,7 @@ Links bible-references in posts automatically to the appropriate bible-verse(s) 
 
 == Description ==
 
-If you write a bible-reference in a post (e.g. "Genesis 20,1" (en) or "Lukas 5,3" (de)), it will be automatically linked to the appropriate bible-verse(s) at bibleserver.com.
+Link-To-Bible links any bible-reference (e.g. "Genesis 20,1" (en) or "Lukas 5,3" (de)) you write in a post automatically to the appropriate bible-verse(s) at bibleserver.com.
 
 You can hereby choose from many different bible-versions in different languages. (See http://www.bibleserver.com/webmasters/index.php for all availabe languages and versions.)
 
@@ -27,7 +27,7 @@ The following information is transmitted to bibleserver.com to add the links:
 - The URL of your blob
 - The selected bible-translation
 - The language-code
-- The text of your post.
+- The text of your post
 
 = License =
 - This plugin is licensed under the GPLv3. (http://www.gnu.org/licenses/gpl.html). You can use it free of charge on your personal or commercial blog.
