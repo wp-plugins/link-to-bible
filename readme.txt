@@ -13,7 +13,7 @@ Link-To-Bible links any bible-reference (e.g. "Genesis 20,1" (en) or "Lukas 5,3"
 
 You can hereby choose from many different bible-versions in different languages. (See http://www.bibleserver.com/webmasters/index.php for all availabe languages and versions.)
 
-Bibleserver.com detected language-specifc the most common notations of bible-references.
+Bibleserver.com detects language-specifc the most common notations of bible-references.
 
 = Notes =
 - This plugin uses the webservice of bibleserver.com
@@ -22,7 +22,7 @@ Bibleserver.com detected language-specifc the most common notations of bible-ref
 - Choosing a different bible-version in the settings will not change any existing links to bibleserver.com in existing articles.
 
 = Privacy =
-The following information is transmitted to bibleserver.com to add the links:
+The following information is transmitted to bibleserver.com to add the links.
 - Your API-Key
 - The URL of your blog
 - The selected bible-translation
