@@ -50,7 +50,7 @@ If you have any issues with the plugin, please write to thomas@thkuhlmann.de (ge
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.0.4 =
 
 Fix regarding issue with "Cannot modify header information"
 
