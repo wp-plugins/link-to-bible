@@ -101,8 +101,7 @@ function ltb_add_admin_page() {
 	add_options_page('Link To Bible', 'Link To Bible', 'manage_options', 'ltb_plugin', 'ltb_options_page');
 }
 
-function ltb_options_page() {
-	?>
+function ltb_options_page() { ?>
 	<div class="wrap">
 		<h2><?php _e('Link To Bible Settings', 'ltb'); ?> </h2>
 
