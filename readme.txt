@@ -22,12 +22,13 @@ Bibleserver.com detects language-specifc the most common notations of bible-refe
 - Choosing a different bible-version in the settings will not change any existing links to bibleserver.com in existing articles.
 
 = Privacy =
-The following information is transmitted to bibleserver.com to add the links.
-- Your API-Key
-- The URL of your blog
-- The selected bible-translation
-- The language-code
-- The text of your post
+The following information is transmitted to bibleserver.com to add the links.<ul>
+<li>Your API-Key</li>
+<li>The URL of your blog</li>
+<li>The selected bible-translation</li>
+<li>The language-code</li>
+<li>The text of your post including all markups</li>
+</ul>
 
 = License =
 - This plugin is licensed under the GPLv3. (http://www.gnu.org/licenses/gpl.html). You can use it free of charge on your personal or commercial blog.
@@ -44,6 +45,9 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 4. Select "Settings" to set the API-Key for bibleserver.com and to choose a bible-version.
 
 == Frequently Asked Questions ==
+
+= How can I disable the linking of a bible-reference =
+You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
 
 = I have a question =
 If you have any issues with the plugin, please write to thomas@thkuhlmann.de (german or english).
