@@ -46,7 +46,7 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 
 == Frequently Asked Questions ==
 
-= How can I disable the linking of a bible-reference =
+= How can I disable the linking of a bible-reference? =
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
 
 = I have a question =
