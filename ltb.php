@@ -140,9 +140,8 @@ function ltb_options_page() {
 		</form>
 
 	</div> 
-<?php } ?>
+<?php }
 
-<?php 
 
 // Returns the available bible-translations for the set locale
 function ltb_get_available_bible_translations() {
@@ -277,10 +276,6 @@ function ltb_get_available_bible_translations() {
 	}
 }
 
-?>
-
-<?php
-
 // Display a Settings link on the main Plugins page
 add_filter( 'plugin_action_links', 'ltb_plugin_action_links', 10, 2 );
 
@@ -291,10 +286,8 @@ function ltb_plugin_action_links( $links, $file ) {
 	}
 	return $links;
 }
-?>
 
 
-<?php
 // --------------- TOOLS ------------------------
 
 // Get locale 
