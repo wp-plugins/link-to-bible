@@ -50,10 +50,14 @@ If you have any issues with the plugin, please write to thomas@thkuhlmann.de (ge
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.3 =
 
-Initial version
+Fix regarding issue with "Cannot modify header information"
 
 = 1.0.2 =
 
 Fix of some minor bugs
+
+= 1.0.0 =
+
+Initial version
