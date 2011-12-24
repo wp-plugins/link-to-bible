@@ -6,7 +6,7 @@ Version: 1.0.4
 Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
 Author: Thomas Kuhlmann
 Min WP Version: 3.2.1 
-Max WP Version: 3.3.1
+Max WP Version: 3.3
 */
 
 /*
@@ -25,7 +25,11 @@ load_plugin_textdomain('ltb', false, basename( dirname( __FILE__ ) ) . '/languag
 add_filter('content_save_pre', 'ltb_add_links');
 
 function ltb_add_links($content) {
-	$result = ltb_ask_bibleserver($content);
+	$options = get_option('ltb_options');
+
+	// Filter
+	$content = ltb_mark_to_ignore_false_positive($options, $content);
+	$result = ltb_ask_bibleserver($options, $content);
 
 	// Check, that there is no empty result
 	if(!$result)
@@ -42,12 +46,27 @@ function ltb_add_links($content) {
 	return $content;
 }
 
-function ltb_ask_bibleserver($content) {
-	$options = get_option('ltb_options');
+// Mark any content, that should not be linked (well known problems, like "Am 1.1.1970")
+function ltb_mark_to_ignore_false_positive($options, $content) {
+	if(!$options['ignore_false_positive'])
+		return $content;
 
+	$patterns = array (
+		"am\s+[0-3]?\d\.[0-1]?\d.\d{0,4}",
+	);
+	
+	foreach($patterns as $pattern) {
+		$content = preg_replace("/$pattern/i", "<span class=\"nolink\">$0</span>", $content);
+		# TODO - Ignore repetetives replacments
+	}
+
+	return $content;
+}
+
+function ltb_ask_bibleserver($options, $content) {
 	// Check, if configured
 	if(!$options['apikey'])
-		return $content;
+		return $content; # TODO - Return error-message
 
 	// POST-Daten definieren
 	$param = array(
@@ -83,6 +102,7 @@ function ltb_show_admin_notices() {
 		echo sprintf('<div id="message" class="error"><p>%s</p></div>', $error);
 
 	delete_transient($hash);
+	# TODO - Delete does not work
 }
 
 // --------------- OPTIONS-PAGE ------------------------
@@ -121,14 +141,23 @@ function ltb_options_page() { ?>
 
 				<tr>
 					<th scope="row"><?php _e('Bible-Version', 'ltb') ?></th>
-				<td>
-					<select name='ltb_options[translation]'>
-						<?php foreach($translations as $key => $value) { ?>
-							<option value='<?php echo $key ?>' <?php selected($key, $options['translation']); ?>><?php echo $value ?></option>
-						<? } ?>	
-					</select>
-					<p class="description"><?php _e('Attention: Some bible-versions may not contain the text of the whole bible.', 'ltb') ?></p>
-				</td>
+					<td>
+						<select name='ltb_options[translation]'>
+							<?php foreach($translations as $key => $value) { ?>
+								<option value='<?php echo $key ?>' <?php selected($key, $options['translation']); ?>><?php echo $value ?></option>
+							<? } ?>	
+						</select>
+						<p class="description"><?php _e('Attention: Some bible-versions may not contain the text of the whole bible.', 'ltb') ?></p>
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
+					<td>
+						<!-- TODO Translations -->
+						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Postives") ?>
+						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible-references which are no ones.', 'ltb') ?></p>
+					</td>
 				</tr>
 
 			</table>
