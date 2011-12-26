@@ -38,6 +38,7 @@ msgstr "Diverses"
 msgid "Some statements are detected by bibleserver.com as bible-references which are no ones."
 msgstr "Manche Ausdrücke werden von bibleserver.com fälschlicherweise als Bibelstellenangabe erkannt."
 
-msgid "Ignore False-Postives"
+#, fuzzy
+msgid "Ignore False-Positives"
 msgstr "Verhindere falsch-positive Verlinkungen"
 

@@ -36,5 +36,5 @@ msgstr ""
 msgid "Some statements are detected by bibleserver.com as bible-references which are no ones."
 msgstr ""
 
-msgid "Ignore False-Postives"
+msgid "Ignore False-Positives"
 msgstr ""

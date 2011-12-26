@@ -156,7 +156,7 @@ function ltb_options_page() { ?>
 					<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
 					<td>
 						<!-- TODO Translations -->
-						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Postives") ?>
+						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Positives") ?>
 						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible-references which are no ones.', 'ltb') ?></p>
 					</td>
 				</tr>
