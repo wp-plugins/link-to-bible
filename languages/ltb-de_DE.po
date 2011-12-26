@@ -29,8 +29,8 @@ msgstr "Änderungen übernehmen"
 msgid "Error while linking to bible"
 msgstr "Fehler während der Verlinkung der Bibelstellen"
 
-msgid "Link To Bible: You need to set an API-Key"
-msgstr "Link To Bible: Es kein API-Key gesetzt."
+msgid "You need to set an API-Key"
+msgstr "Es kein API-Key gesetzt."
 
 msgid "Other settings"
 msgstr "Diverses"

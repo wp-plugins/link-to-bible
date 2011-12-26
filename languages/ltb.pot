@@ -27,7 +27,7 @@ msgstr ""
 msgid "Error while linking to bible"
 msgstr ""
 
-msgid "Link To Bible: You need to set an API-Key"
+msgid "You need to set an API-Key"
 msgstr ""
 
 msgid "Other settings"
@@ -38,3 +38,4 @@ msgstr ""
 
 msgid "Ignore False-Positives"
 msgstr ""
+

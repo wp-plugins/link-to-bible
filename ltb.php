@@ -68,7 +68,7 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 function ltb_ask_bibleserver($options, $content) {
 	// Check, if configured
 	if(!$options['apikey'])
-		return __("Link To Bible: You need to set an API-Key");
+		return __("You need to set an API-Key");
 
 	// POST-Daten definieren
 	$param = array(
