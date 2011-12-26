@@ -2,8 +2,8 @@
 Contributors: Thomas Kuhlmann
 Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
-Tested up to: 3.3.1
-Stable tag: 1.0.4
+Tested up to: 3.3
+Stable tag: 1.1.0
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
@@ -54,14 +54,20 @@ If you have any issues with the plugin, please write to thomas@thkuhlmann.de (ge
 
 == Changelog ==
 
+= 1.1.0 =
+
+- Add the option to ignore false-positive-linkings
+- Fix some minor bugs
+- Added and translated some error-messages
+
 = 1.0.4 =
 
-Fix regarding issue with "Cannot modify header information"
+- Fix regarding issue with "Cannot modify header information"
 
 = 1.0.2 =
 
-Fix of some minor bugs
+- Fix of some minor bugs
 
 = 1.0.0 =
 
-Initial version
+- Initial version
