@@ -41,7 +41,7 @@ function ltb_add_links($content) {
 		return $result;	
 
 	// If result is an error, print it, and return orig-content
-	$error = sprintf('%s: "%s', __('Error while linking to bible', 'ltb'), $result);
+	$error = sprintf('%s: "%s"', __('Error while linking to bible', 'ltb'), $result);
 	set_transient(ltb_get_transient_hash(), $error, 10);
 	return $content;
 }
@@ -68,7 +68,7 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 function ltb_ask_bibleserver($options, $content) {
 	// Check, if configured
 	if(!$options['apikey'])
-		return __("You need to set an API-Key");
+		return __("You need to set an API-Key", "ltb");
 
 	// POST-Daten definieren
 	$param = array(
@@ -156,7 +156,7 @@ function ltb_options_page() { ?>
 					<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
 					<td>
 						<!-- TODO Translations -->
-						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Positives") ?>
+						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Positives", "ltb") ?>
 						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible-references which are no ones.', 'ltb') ?></p>
 					</td>
 				</tr>
