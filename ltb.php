@@ -41,6 +41,7 @@ function ltb_add_links($content) {
 		return $result;	
 
 	// If result is an error, print it, and return orig-content
+	// TODO - Translation
 	$error = sprintf('%s: "%s', __('Error while linking to bible', 'ltb'), $result);
 	set_transient(ltb_get_transient_hash(), $error, 10);
 	return $content;
@@ -56,8 +57,10 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 	);
 	
 	foreach($patterns as $pattern) {
-		$content = preg_replace("/$pattern/i", "<span class=\"nolink\">$0</span>", $content);
-		# TODO - Ignore repetetives replacments
+		$content = preg_replace(
+			"/(<span class=.*nolink.*>)?($pattern)(<\/span>)?/i", 
+		  "<span class=\"nolink\">$2</span>",
+			$content);
 	}
 
 	return $content;
@@ -66,7 +69,7 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 function ltb_ask_bibleserver($options, $content) {
 	// Check, if configured
 	if(!$options['apikey'])
-		return $content; # TODO - Return error-message
+		return _("Link To Bible: You need to set an API-Key");
 
 	// POST-Daten definieren
 	$param = array(
@@ -75,7 +78,7 @@ function ltb_ask_bibleserver($options, $content) {
 		'lang' => ltb_get_locale(),
 		'trl' => $options['translation'], 
 	);
-     
+    
 	// Doing POST-Request
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'http://www.bibleserver.com/api/parser');
@@ -102,7 +105,6 @@ function ltb_show_admin_notices() {
 		echo sprintf('<div id="message" class="error"><p>%s</p></div>', $error);
 
 	delete_transient($hash);
-	# TODO - Delete does not work
 }
 
 // --------------- OPTIONS-PAGE ------------------------
