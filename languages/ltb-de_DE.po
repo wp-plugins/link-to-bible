@@ -29,3 +29,15 @@ msgstr "Änderungen übernehmen"
 msgid "Error while linking to bible"
 msgstr "Fehler während der Verlinkung der Bibelstellen"
 
+msgid "Link To Bible: You need to set an API-Key"
+msgstr "Link To Bible: Es kein API-Key gesetzt."
+
+msgid "Other settings"
+msgstr "Diverses"
+
+msgid "Some statements are detected by bibleserver.com as bible-references which are no ones."
+msgstr "Manche Ausdrücke werden von bibleserver.com fälschlicherweise als Bibelstellenangabe erkannt."
+
+msgid "Ignore False-Postives"
+msgstr "Verhindere falsch-positive Verlinkungen"
+

@@ -41,7 +41,6 @@ function ltb_add_links($content) {
 		return $result;	
 
 	// If result is an error, print it, and return orig-content
-	// TODO - Translation
 	$error = sprintf('%s: "%s', __('Error while linking to bible', 'ltb'), $result);
 	set_transient(ltb_get_transient_hash(), $error, 10);
 	return $content;
@@ -69,7 +68,7 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 function ltb_ask_bibleserver($options, $content) {
 	// Check, if configured
 	if(!$options['apikey'])
-		return _("Link To Bible: You need to set an API-Key");
+		return __("Link To Bible: You need to set an API-Key");
 
 	// POST-Daten definieren
 	$param = array(
