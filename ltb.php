@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Link To Bible 
-Description: Automatically links bible-references in posts to the appropriate bible-verse(s) at bibleserver.com
-Version: 1.1.0
+Description: Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com and indexes bible-references in articles and adds an widget to search for them.
+Version: 2.0.0
 Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
 Author: Thomas Kuhlmann
 Min WP Version: 3.2.1 
@@ -14,36 +14,67 @@ Max WP Version: 3.3
 	Published with the explicit approval of bibleserver.com / ERF Media e.V. (06.12.2011)
 */
 
+// ---------- DEFS ---------------------------------
+
+global $ltb_db_version;
+$ltb_db_version = 1.0;
+
+global $ltb_cfg_version;
+$ltb_cfg_version = 1.1;
+
 
 // ---------- INIT ---------------------------------
 
 load_plugin_textdomain('ltb', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
-
 register_activation_hook(__FILE__, 'ltb_init');
 
 function ltb_init() {
-	ltb_init_options();
+	ltb_update_options();
 	ltb_init_database();
 }
 
 function ltb_init_database() {
-	# TODO - Init database 
+	# TODO - Init database
+	
+	global $ltb_db_version;
+	update_option("ltb_db_version", $ltb_db_version);	
 }
 
-function ltb_init_options() {
-	$options = get_option('ltb_options');
-	if(!$options['ignore_false_positive'])
-		$options['ignore_false_positive'] = 1;
-	if(!$options['activate_index_db'])
-		$options['activate_index_db'] = 1;
-	update_option($options);		
-}
 
 // ---------- UPDATE ---------------------------------
 
 function ltb_update() {
-	# TODO - Update database
+	ltb_update_database();
+	ltb_update_options();
+}
+
+function ltb_update_database() {
+	global $ltb_db_version;
+	$installed_version = get_option( "ltb_db_version" );
+	if( $installed_ver != ltb_db_version )
+		ltb_init_database();
+}
+
+function ltb_update_options() {
+	global $ltb_cfg_version;
+	$installed_version = get_option( "ltb_cfg_version" );
+			 
+	$options = get_option('ltb_options');
+	switch($installed_version) {
+		case $ltb_cfg_version:
+			break;
+		case 1.0:
+			$options['activate_index_db'] = 1;
+			break;					
+		default:
+			$options['activate_index_db'] = 1;
+			$options['ignore_false_positive'] = 1;
+			break;
+	}							
+	update_option('ltb_options', $options);
+
+	update_option("ltb_cfg_version", $ltb_cfg_version);	
 }
 
 add_action('plugins_loaded', 'ltb_update');
@@ -213,7 +244,7 @@ function ltb_options_page() { ?>
 					</td>
 				</tr>
 
-				<!-- TODO Translate -->
+				<?php #TODO - Translate ?>
 				<tr>
 					<th scope="row"><?php _e('Reference-Index', 'ltb') ?></th>
 					<td>
@@ -238,7 +269,7 @@ function ltb_options_page() { ?>
 		</form>
 
 
-		<!-- TODO - Index and link all articles. -->
+		<?php #TODO - Index and link all articles. ?>
 
 	</div> 
 <?php }
@@ -253,13 +284,13 @@ function ltb_get_available_bible_translations() {
 		return array(
 			"SLT" => "Schlachter 2000",
 			"LUT" => "Luther 1984",             
-			"NGÜ" => "Neue Genfer Übersetzung", 
+			"NGÃœ" => "Neue Genfer Ãœbersetzung", 
 			"ELB" => "Rev. Elberfelder",
-			"HFA" => "Hoffnung für alle",       
+			"HFA" => "Hoffnung fÃ¼r alle",       
 			"GNB" => "Gute Nachricht Bibel",    
-			"EU" => "Einheitsübersetzung",      
+			"EU" => "EinheitsÃ¼bersetzung",      
 			"NL" => "Neues Leben",
-			"NeÜ" => "Neue evangelistische Übersetzung",
+			"NeÃœ" => "Neue evangelistische Ãœbersetzung",
 		);                                    
 
 		case "fr":
@@ -270,7 +301,7 @@ function ltb_get_available_bible_translations() {
 
 		case "it":
 		return array(
-			"ITA"	=> "La Parola è Vita",
+			"ITA"	=> "La Parola Ã¨ Vita",
 			"NRS" => "Nuova Riveduta 2006",
 		);
 
@@ -282,7 +313,7 @@ function ltb_get_available_bible_translations() {
 		case "es":
 		return array(
 			"CST"	=> "Version La Biblia al Dia",
-			"NVI" => "Nueva Versión Internacional",
+			"NVI" => "Nueva VersiÃ³n Internacional",
 			"BTX" => "La Biblia Textual",
 		);
 
@@ -303,51 +334,51 @@ function ltb_get_available_bible_translations() {
 
 		case "da":
 		return array(
-			"DK" =>	"Bibelen på hverdagsdansk",
+			"DK" =>	"Bibelen pÃ¥ hverdagsdansk",
 		);
 
 		case "pl":
 		return array(
-			"POL"	=> "Słowo Życia",
+			"POL"	=> "SÅ‚owo Å»ycia",
 		);
 
 		case "cs":
 		return array(
-			"CEP"	=> "Český ekumenický překlad",
+			"CEP"	=> "ÄŒeskÃ½ ekumenickÃ½ pÅ™eklad",
 			"SNC" => "Slovo na cestu",
-			"B21" => "Bible, překlad 21. století",
+			"B21" => "Bible, pÅ™eklad 21. stoletÃ­",
 		);
 
 		case "sk":
 		return array(
-			"NPK"	=> "Nádej pre kazdého",
+			"NPK"	=> "NÃ¡dej pre kazdÃ©ho",
 		);
 
 		case "hu":
 		return array(
-			"KAR" => "IBS-fordítás (Új Károli)",
+			"KAR" => "IBS-fordÃ­tÃ¡s (Ãšj KÃ¡roli)",
 			"HUN"	=> "Hungarian",
 		);
 
 		case "ro":
 		return array(
-			"NTR"	=> "Noua traducere în limba românã",
+			"NTR"	=> "Noua traducere Ã®n limba romÃ¢nÃ£",
 		);
 
 		case "bg":
 		return array(
-			"BLG" => "Българската Библия",
+			"BLG" => "Ð‘ÑŠÐ»Ð³Ð°Ñ€Ñ�ÐºÐ°Ñ‚Ð° Ð‘Ð¸Ð±Ð»Ð¸Ñ�",
 		);
 
 		case "ru":
 		return array(
-			"RUS" => "Новый перевод на русский язы",
-			"CRS" => "Священное Писание",
+			"RUS" => "Ð�Ð¾Ð²Ñ‹Ð¹ Ð¿ÐµÑ€ÐµÐ²Ð¾Ð´ Ð½Ð° Ñ€ÑƒÑ�Ñ�ÐºÐ¸Ð¹ Ñ�Ð·Ñ‹",
+			"CRS" => "Ð¡Ð²Ñ�Ñ‰ÐµÐ½Ð½Ð¾Ðµ ÐŸÐ¸Ñ�Ð°Ð½Ð¸Ðµ",
 		);
 
 		case "tr":
 		return array(
-			"TR" => "Türkçe",
+			"TR" => "TÃ¼rkÃ§e",
 		);
 
 		case "hr":
@@ -357,12 +388,12 @@ function ltb_get_available_bible_translations() {
 
 		case "ar":
 		return array(
-			"ARA" => "عربي",
+			"ARA" => "Ø¹Ø±Ø¨ÙŠ",
 		);
 
 		case "zh":
 		return array(
-			"CUVS" =>	"中文和合本（简体）",
+			"CUVS" =>	"ä¸­æ–‡å’Œå�ˆæœ¬ï¼ˆç®€ä½“ï¼‰",
 		);
 
 
