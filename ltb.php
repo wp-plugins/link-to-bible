@@ -23,14 +23,33 @@ load_plugin_textdomain('ltb', false, basename( dirname( __FILE__ ) ) . '/languag
 register_activation_hook(__FILE__, 'ltb_init');
 
 function ltb_init() {
+	ltb_init_options();
+	ltb_init_database();
+}
+
+function ltb_init_database() {
+	# TODO - Init database 
+}
+
+function ltb_init_options() {
 	$options = get_option('ltb_options');
 	if(!$options['ignore_false_positive'])
 		$options['ignore_false_positive'] = 1;
+	if(!$options['activate_index_db'])
+		$options['activate_index_db'] = 1;
 	update_option($options);		
 }
 
+// ---------- UPDATE ---------------------------------
 
-// ---------- DOING CONTENT-FILTERING --------------------
+function ltb_update() {
+	# TODO - Update database
+}
+
+add_action('plugins_loaded', 'ltb_update');
+
+
+// ---------- LINKING TO BIBLESERVER.COM --------------------
 
 add_filter('content_save_pre', 'ltb_add_links');
 
@@ -116,6 +135,38 @@ function ltb_show_admin_notices() {
 	delete_transient($hash);
 }
 
+
+// --------------- BUILD-REFERENCE-INDEX ---------------
+
+add_action( 'save_post', 'ltb_index_bible_references' );
+
+function ltb_index_bible_references($post_id) {
+
+	# TODO - Index references of article
+
+}
+
+
+// --------------- SEARCH-WIDGET -----------------------
+
+add_action( 'widgets_init', create_function( '', 'register_widget("LTB_Search_Widget");' ) );
+
+class LTB_Search_Widget extends WP_Widget {
+
+	function LTB_Search_Widget() {
+		$widget_ops = array(
+			'classname' => 'ltb_widget',
+			'description' => 'A widget to search bible-references in articles.'
+		);
+    $control_ops = array('width' => 200, 'height' => 350);
+    $this->WP_Widget('Link To Bible', 'Link To Bible', $widget_ops, $control_ops);
+	}
+
+	#TODO - Add search-function
+
+}
+
+
 // --------------- OPTIONS-PAGE ------------------------
 
 add_action('admin_init', 'ltb_admin_init' );
@@ -162,10 +213,17 @@ function ltb_options_page() { ?>
 					</td>
 				</tr>
 
+				<!-- TODO Translate -->
+				<tr>
+					<th scope="row"><?php _e('Reference-Index', 'ltb') ?></th>
+					<td>
+						<input type="checkbox" name="ltb_options[activate_index_db]" value="1" <?php checked( 1 == $options['activate_index_db'] ); ?> /> <? _e("Activate indexing of bible-references", "ltb") ?>
+					</td>
+				</tr>
+
 				<tr>
 					<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
 					<td>
-						<!-- TODO Translations -->
 						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Positives", "ltb") ?>
 						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible-references which are no ones.', 'ltb') ?></p>
 					</td>
@@ -178,6 +236,9 @@ function ltb_options_page() { ?>
 			</p>
 
 		</form>
+
+
+		<!-- TODO - Index and link all articles. -->
 
 	</div> 
 <?php }
