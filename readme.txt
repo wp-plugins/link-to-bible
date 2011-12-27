@@ -54,19 +54,23 @@ If you have any issues with the plugin, please write to thomas@thkuhlmann.de (ge
 
 == Changelog ==
 
+= 1.1.1 =
+
+- Set to ignore false-positive-linking as default
+
 = 1.1.0 =
 
-- Add the option to ignore false-positive-linkings
-- Fix some minor bugs
+- Added the option to ignore false-positive-linkings
+- Fixed some minor bugs
 - Added and translated some error-messages
 
 = 1.0.4 =
 
-- Fix regarding issue with "Cannot modify header information"
+- Fixed issue with "Cannot modify header information"
 
 = 1.0.2 =
 
-- Fix of some minor bugs
+- Fixed some minor bugs
 
 = 1.0.0 =
 

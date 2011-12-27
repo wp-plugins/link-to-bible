@@ -20,6 +20,16 @@ Max WP Version: 3.3
 load_plugin_textdomain('ltb', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 
+register_activation_hook(__FILE__, 'ltb_init');
+
+function ltb_init() {
+	$options = get_option('ltb_options');
+	if(!$options['ignore_false_positive'])
+		$options['ignore_false_positive'] = 1;
+	update_option($options);		
+}
+
+
 // ---------- DOING CONTENT-FILTERING --------------------
 
 add_filter('content_save_pre', 'ltb_add_links');
