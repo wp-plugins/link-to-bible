@@ -165,66 +165,90 @@ function ltb_options_page() { ?>
 	<?php $options = get_option('ltb_options'); ?>
 	
 	<div class="wrap">
-		<h2><?php _e('Link To Bible Settings', 'ltb'); ?> </h2>
+		<h2>Link To Bible</h2>
 
 		<form action="options.php" method="post">
 			<?php settings_fields('ltb_plugin_options'); ?>
 			<?php $translations = ltb_get_available_bible_translations(); ?>
+		
+			<div id="poststuff" class="poststuff">
+			<div class="postbox">
 
-			<table class="form-table">
-				<tr>
-					<th scope="row">Bibleserver.com API-Key</th>
-					<td>
-						<input type="text" size="60" name="ltb_options[apikey]" value="<?php echo $options['apikey']; ?>" />
-						<p class="description"><?php printf(__('The API-Key can be get %shere%s. You need to use the address of you blog (%s) as the domainname.', 'ltb'), '<a href="http://www.bibleserver.com/webmasters/#apikey" target="_blank">', '</a>', get_option('siteurl')) ?></p>
-				</tr>
+				<h3><?php _e('Settings', 'ltb'); ?> </h2>
+				
+				<div class="inside">				
 
-				<tr>
-					<th scope="row"><?php _e('Bible-Version', 'ltb') ?></th>
-					<td>
-						<select name='ltb_options[translation]'>
-							<?php foreach($translations as $key => $value) { ?>
-								<option value='<?php echo $key ?>' <?php selected($key, $options['translation']); ?>><?php echo $value ?></option>
+					<table class="form-table">
+						<tr>
+							<th scope="row">Bibleserver.com API-Key</th>
+							<td>
+								<input type="text" size="60" name="ltb_options[apikey]" value="<?php echo $options['apikey']; ?>" />
+								<p class="description"><?php printf(__('The API-Key can be get %shere%s. You need to use the address of you blog (%s) as the domainname.', 'ltb'), '<a href="http://www.bibleserver.com/webmasters/#apikey" target="_blank">', '</a>', get_option('siteurl')) ?></p>
+							</td>
+						</tr>
+
+						<tr>
+							<th scope="row"><?php _e('Bible-Version', 'ltb') ?></th>
+							<td>
+								<select name='ltb_options[translation]'>
+									<?php foreach($translations as $key => $value) { ?>
+										<option value='<?php echo $key ?>' <?php selected($key, $options['translation']); ?>><?php echo $value ?></option>
 							<? } ?>	
-						</select>
-						<p class="description"><?php _e('Attention: Some bible-versions may not contain the text of the whole bible.', 'ltb') ?></p>
-					</td>
-				</tr>
+								</select>
+								<p class="description"><?php _e('Attention: Some bible-versions may not contain the text of the whole bible.', 'ltb') ?></p>
+							</td>
+						</tr>
 
-				<tr>
-					<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
-					<td>
-						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Positives", "ltb") ?>
-						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible-references which are no ones.', 'ltb') ?></p>
-					</td>
-				</tr>
+						<tr>
+							<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
+							<td>
+								<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Positives", "ltb") ?>
+								<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible-references which are no ones.', 'ltb') ?></p>
+							</td>
+						</tr>
 
-			</table>
+					</table>
 			
-			<p class="submit">
-				<input name="ltb_submit" type="submit" class="button-primary" value="<?php _e('Submit Changes', 'ltb') ?>" />
-			</p>
+					<p class="submit">
+						<input name="ltb_submit" type="submit" class="button-primary" value="<?php _e('Submit Changes', 'ltb') ?>" />
+					</p>
+	
+				</div>
 
-		</form>
+			</div>
+		</div>
 
-		<h2><?php _e('Link existing articles', 'ltb'); ?> </h2>
+		
+		<div id="poststuff" class="poststuff">
+		<div class="postbox">
 
-		<form action="options.php" method="post">
-			<p class="description"><?php _e('Note to linking.', 'ltb') ?></p>
+			<h3><?php _e('Link existing articles', 'ltb'); ?></h3>
+
+			<div class="inside">
 			
-			<table class="form-table">
-				<tr>
-					<th scope="row">Count of newest article to link (max. 100)</th>
-					<td>
-						<input type="text" size="60" name="count" value="100" />
-					</td>
-				</tr>
-			</table>
+				<table class="form-table">
+					<tr>
+						<td colspan="2">
+							<p class="description"><?php _e('Note to linking.', 'ltb') ?></p>
+						</td>
+					</tr>
+
+					<tr>
+						<th scope="row"><?php _e('Count of newest article to link (max. 100)', 'ltb') ?></th>
+						<td>
+							<input type="text" size="10" name="ltb_link_count" value="100" />
+						</td>	
+					</tr>
+				</table>
 			
-			<p class="submit">
-				<input name="ltb_index" type="submit" class="button-primary" value="<?php _e('Link existing articles', 'ltb') ?>" />
-			</p>
-		</form>
+				<p class="submit">
+					<input name="ltb_index" type="submit" class="button-primary" value="<?php _e('Link existing articles', 'ltb') ?>" />
+				</p>
+		
+			</div>
+
+		</div>
+		</div>
 		
 	</div> 
 <?php }
