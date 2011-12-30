@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Link To Bible 
-Description: Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com and indexes bible-references in articles and adds an widget to search for them.
-Version: 2.0.0
+Description: Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
+Version: 1.2.0
 Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
 Author: Thomas Kuhlmann
 Min WP Version: 3.2.1 
@@ -16,9 +16,6 @@ Max WP Version: 3.3
 
 // ---------- DEFS ---------------------------------
 
-global $ltb_db_version;
-$ltb_db_version = 1.0;
-
 global $ltb_cfg_version;
 $ltb_cfg_version = 1.1;
 
@@ -31,29 +28,15 @@ register_activation_hook(__FILE__, 'ltb_init');
 
 function ltb_init() {
 	ltb_update_options();
-	ltb_init_database();
-}
-
-function ltb_init_database() {
-	# TODO - Init database
-	
-	global $ltb_db_version;
-	update_option("ltb_db_version", $ltb_db_version);	
 }
 
 
 // ---------- UPDATE ---------------------------------
 
-function ltb_update() {
-	ltb_update_database();
-	ltb_update_options();
-}
+add_action('plugins_loaded', 'ltb_update');
 
-function ltb_update_database() {
-	global $ltb_db_version;
-	$installed_version = get_option( "ltb_db_version" );
-	if( $installed_ver != ltb_db_version )
-		ltb_init_database();
+function ltb_update() {
+	ltb_update_options();
 }
 
 function ltb_update_options() {
@@ -64,11 +47,7 @@ function ltb_update_options() {
 	switch($installed_version) {
 		case $ltb_cfg_version:
 			break;
-		case 1.0:
-			$options['activate_index_db'] = 1;
-			break;					
 		default:
-			$options['activate_index_db'] = 1;
 			$options['ignore_false_positive'] = 1;
 			break;
 	}							
@@ -76,8 +55,6 @@ function ltb_update_options() {
 
 	update_option("ltb_cfg_version", $ltb_cfg_version);	
 }
-
-add_action('plugins_loaded', 'ltb_update');
 
 
 // ---------- LINKING TO BIBLESERVER.COM --------------------
@@ -167,37 +144,6 @@ function ltb_show_admin_notices() {
 }
 
 
-// --------------- BUILD-REFERENCE-INDEX ---------------
-
-add_action( 'save_post', 'ltb_index_bible_references' );
-
-function ltb_index_bible_references($post_id) {
-
-	# TODO - Index references of article
-
-}
-
-
-// --------------- SEARCH-WIDGET -----------------------
-
-add_action( 'widgets_init', create_function( '', 'register_widget("LTB_Search_Widget");' ) );
-
-class LTB_Search_Widget extends WP_Widget {
-
-	function LTB_Search_Widget() {
-		$widget_ops = array(
-			'classname' => 'ltb_widget',
-			'description' => 'A widget to search bible-references in articles.'
-		);
-    $control_ops = array('width' => 200, 'height' => 350);
-    $this->WP_Widget('Link To Bible', 'Link To Bible', $widget_ops, $control_ops);
-	}
-
-	#TODO - Add search-function
-
-}
-
-
 // --------------- OPTIONS-PAGE ------------------------
 
 add_action('admin_init', 'ltb_admin_init' );
@@ -244,14 +190,6 @@ function ltb_options_page() { ?>
 					</td>
 				</tr>
 
-				<?php #TODO - Translate ?>
-				<tr>
-					<th scope="row"><?php _e('Reference-Index', 'ltb') ?></th>
-					<td>
-						<input type="checkbox" name="ltb_options[activate_index_db]" value="1" <?php checked( 1 == $options['activate_index_db'] ); ?> /> <? _e("Activate indexing of bible-references", "ltb") ?>
-					</td>
-				</tr>
-
 				<tr>
 					<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
 					<td>
@@ -268,9 +206,18 @@ function ltb_options_page() { ?>
 
 		</form>
 
+		<h2><?php _e('Link existing articles', 'ltb'); ?> </h2>
 
-		<?php #TODO - Index and link all articles. ?>
+		<form action="options.php" method="post">
+			<?php settings_fields('ltb_plugin_options'); ?>
 
+			<p class="description"><?php _e('Note to linking.', 'ltb') ?></p>
+			
+			<p class="submit">
+				<input name="ltb_index" type="submit" class="button-primary" value="<?php _e('Link existing articles', 'ltb') ?>" />
+			</p>
+		</form>
+		
 	</div> 
 <?php }
 

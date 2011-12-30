@@ -5,7 +5,7 @@ Requires at least: 3.2.1
 Tested up to: 3.3
 Stable tag: 1.1.0
 
-Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com and indexes bible-references in articles and adds an widget to search for them.
+Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
 == Description ==
 
@@ -14,8 +14,6 @@ Link-To-Bible links any bible-reference (e.g. "Genesis 20,1" (en) or "Lukas 5,3"
 You can hereby choose from many different bible-versions in different languages. (See http://www.bibleserver.com/webmasters/index.php for all availabe languages and versions.)
 
 Bibleserver.com detects language-specifc the most common notations of bible-references.
-
-Also indexes all bible-references in all articles and adds an widget to search for articles containing bible-references.
 
 
 = Notes =
@@ -57,9 +55,9 @@ If you have any issues with the plugin, please write to thomas@thkuhlmann.de (ge
 
 == Changelog ==
 
-= 2.0.0 =
+= 1.2.0 =
 
-- Added the option to index the bible-references
+- Added the option to add links to exisiting articles.
 
 = 1.1.1 =
 
