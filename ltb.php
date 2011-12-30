@@ -162,12 +162,13 @@ function ltb_add_admin_page() {
 }
 
 function ltb_options_page() { ?>
+	<?php $options = get_option('ltb_options'); ?>
+	
 	<div class="wrap">
 		<h2><?php _e('Link To Bible Settings', 'ltb'); ?> </h2>
 
 		<form action="options.php" method="post">
 			<?php settings_fields('ltb_plugin_options'); ?>
-			<?php $options = get_option('ltb_options'); ?>
 			<?php $translations = ltb_get_available_bible_translations(); ?>
 
 			<table class="form-table">
@@ -209,9 +210,16 @@ function ltb_options_page() { ?>
 		<h2><?php _e('Link existing articles', 'ltb'); ?> </h2>
 
 		<form action="options.php" method="post">
-			<?php settings_fields('ltb_plugin_options'); ?>
-
 			<p class="description"><?php _e('Note to linking.', 'ltb') ?></p>
+			
+			<table class="form-table">
+				<tr>
+					<th scope="row">Count of newest article to link (max. 100)</th>
+					<td>
+						<input type="text" size="60" name="count" value="100" />
+					</td>
+				</tr>
+			</table>
 			
 			<p class="submit">
 				<input name="ltb_index" type="submit" class="button-primary" value="<?php _e('Link existing articles', 'ltb') ?>" />
