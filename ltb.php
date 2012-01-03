@@ -175,7 +175,7 @@ function ltb_options_page() { ?>
 			<div id="poststuff" class="poststuff">
 			<div class="postbox">
 
-				<h3><?php _e('Settings', 'ltb'); ?> </h2>
+				<h3><?php _e('Settings', 'ltb'); ?> </h3>
 				
 				<div class="inside">				
 
@@ -251,7 +251,9 @@ function ltb_options_page() { ?>
 		</div>
 		</div>
 		
-	</div> 
+	</form> 
+		
+	</div>
 <?php }
 
 
