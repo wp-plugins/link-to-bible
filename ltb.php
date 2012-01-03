@@ -167,7 +167,8 @@ function ltb_options_page() { ?>
 	<div class="wrap">
 		<h2>Link To Bible</h2>
 
-		<form action="options.php" method="post">
+		<!-- <form action="options.php"  method="post"> -->
+		<form method="post">
 			<?php settings_fields('ltb_plugin_options'); ?>
 			<?php $translations = ltb_get_available_bible_translations(); ?>
 		
