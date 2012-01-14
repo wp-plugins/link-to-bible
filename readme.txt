@@ -2,7 +2,7 @@
 Contributors: Thomas Kuhlmann
 Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
-Tested up to: 3.3
+Tested up to: 3.3.1
 Stable tag: 1.1.0
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
@@ -49,6 +49,9 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 
 = How can I disable the linking of a bible-reference? =
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
+
+= How do I report a bug or a feature-request =
+You can use the bugtracker at http://bugs.thk-systems.de and add an entry for the project 'link-to-bible' or write an email to thomas@thkuhlmann.de'.
 
 = I have a question =
 If you have any issues with the plugin, please write to thomas@thkuhlmann.de (german or english).
