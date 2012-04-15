@@ -19,6 +19,7 @@ Max WP Version: 3.3.1
 include_once 'includes/LTBOptions.php';
 include_once 'includes/LTBLinker.php';
 include_once 'includes/LTBTools.php';
+include_once 'includes/LTBPreferences.php';
 
 
 // ---------- INIT ---------------------------------
@@ -30,12 +31,14 @@ load_plugin_textdomain('ltb', false, basename( dirname( __FILE__ ) ) . '/languag
 
 class LTBPlugin {
 
-	protected $configuration; 
+	protected $options; 
 	protected $linker;
+	protected $preferences;
 	
 	public function __construct() {
-		$this->configuration = new LTBOptions();
-		$this->linker = new LTBLinker($this->configuration);
+		$this->options = new LTBOptions();
+		$this->linker = new LTBLinker($this->options);
+		$this->preferences = new LTBPreferences($this->options, $this->linker);
 		add_action('admin_notices', array($this, 'show_admin_notices'));		
 	}
 	
