@@ -2,16 +2,16 @@
 /*
 Plugin Name: Link To Bible 
 Description: Automatically links bible-references in posts to the appropriate bible-verse(s) at bibleserver.com
-Version: 1.1.0
+Version: 1.1.2
 Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
 Author: Thomas Kuhlmann
 Min WP Version: 3.2.1 
-Max WP Version: 3.3
+Max WP Version: 3.8
 */
 
 /*
-	License: GPLv3, see 'license.txt'
-	Published with the explicit approval of bibleserver.com / ERF Media e.V. (06.12.2011)
+License: GPLv3, see 'license.txt'
+Published with the explicit approval of bibleserver.com / ERF Media e.V. (06.12.2011)
 */
 
 
@@ -245,6 +245,7 @@ function ltb_get_available_bible_translations() {
 			"CEP"	=> "Český ekumenický překlad",
 			"SNC" => "Slovo na cestu",
 			"B21" => "Bible, překlad 21. století",
+			"BKR" => "Bible Kralická",
 		);
 
 		case "sk":
