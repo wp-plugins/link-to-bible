@@ -2,8 +2,8 @@
 Contributors: Thomas Kuhlmann
 Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
-Tested up to: 3.3.1
-Stable tag: 1.1.0
+Tested up to: 3.8
+Stable tag: 1.1.2
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
@@ -14,7 +14,6 @@ Link-To-Bible links any bible-reference (e.g. "Genesis 20,1" (en) or "Lukas 5,3"
 You can hereby choose from many different bible-versions in different languages. (See http://www.bibleserver.com/webmasters/index.php for all availabe languages and versions.)
 
 Bibleserver.com detects language-specifc the most common notations of bible-references.
-
 
 = Notes =
 - This plugin uses the webservice of bibleserver.com
@@ -50,35 +49,34 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 = How can I disable the linking of a bible-reference? =
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
 
-= How do I report a bug or a feature-request =
-You can use the bugtracker at http://bugs.thk-systems.de and add an entry for the project 'link-to-bible' or write an email to thomas@thkuhlmann.de'.
-
 = I have a question =
 If you have any issues with the plugin, please write to thomas@thkuhlmann.de (german or english).
 
 == Changelog ==
 
-= 1.2.0 =
+= 1.1.2 =
 
-- Added the option to add links to exisiting articles.
+- Update bible list
+- Some refactoring
 
 = 1.1.1 =
 
-- Set to ignore false-positive-linking as default
+- Some minor bug-fixes
+- A new major version will be released in the next months.
 
 = 1.1.0 =
 
-- Added the option to ignore false-positive-linkings
-- Fixed some minor bugs
+- Add the option to ignore false-positive-linkings
+- Fix some minor bugs
 - Added and translated some error-messages
 
 = 1.0.4 =
 
-- Fixed issue with "Cannot modify header information"
+- Fix regarding issue with "Cannot modify header information"
 
 = 1.0.2 =
 
-- Fixed some minor bugs
+- Fix of some minor bugs
 
 = 1.0.0 =
 
