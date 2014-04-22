@@ -6,7 +6,7 @@ Version: 1.1.2
 Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
 Author: Thomas Kuhlmann
 Min WP Version: 3.2.1 
-Max WP Version: 3.8
+Max WP Version: 3.9
 */
 
 /*
