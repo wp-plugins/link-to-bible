@@ -2,8 +2,13 @@
 Contributors: Thomas Kuhlmann
 Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
+<<<<<<< .mine
+Tested up to: 4.1
+Stable tag: 1.1.3
+=======
 Tested up to: 3.9
 Stable tag: 1.1.2
+>>>>>>> .r1050547
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
@@ -54,6 +59,11 @@ If you have any issues with the plugin, please write to thomas@thkuhlmann.de (ge
 
 == Changelog ==
 
+= 1.1.3 =
+
+- Bugfix regarding issue "unexpected end of file'"
+- Some minor bugfixes 
+
 = 1.1.2 =
 
 - Update bible list
@@ -61,7 +71,7 @@ If you have any issues with the plugin, please write to thomas@thkuhlmann.de (ge
 
 = 1.1.1 =
 
-- Some minor bug-fixes
+- Some minor bugfixes
 - A new major version will be released in the next months.
 
 = 1.1.0 =

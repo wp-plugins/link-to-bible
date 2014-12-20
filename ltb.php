@@ -2,11 +2,11 @@
 /*
 Plugin Name: Link To Bible 
 Description: Automatically links bible-references in posts to the appropriate bible-verse(s) at bibleserver.com
-Version: 1.1.2
+Version: 1.1.3
 Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
 Author: Thomas Kuhlmann
 Min WP Version: 3.2.1 
-Max WP Version: 3.8
+Max WP Version: 4.1
 */
 
 /*
@@ -37,8 +37,9 @@ function ltb_add_links($content) {
 
 	// Check, that the result is no error-string
 	$result_start = substr($result, 10);
-	if($result_start==substr($content, 10) or (strpos($result_start,"<")))
-		return $result;	
+	if($result_start==substr($content, 10) or (strpos($result_start,"<"))) {
+		return $result;
+	}
 
 	// If result is an error, print it, and return orig-content
 	$error = sprintf('%s: "%s"', __('Error while linking to bible', 'ltb'), $result);
@@ -52,14 +53,14 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 		return $content;
 
 	$patterns = array (
-		"am\s+[0-3]?\d\.[0-1]?\d.\d{0,4}",
+			"am\s+[0-3]?\d\.[0-1]?\d.\d{0,4}",
 	);
-	
+
 	foreach($patterns as $pattern) {
 		$content = preg_replace(
-			"/(<span class=.*nolink.*>)?($pattern)(<\/span>)?/i", 
+				"/(<span class=.*nolink.*>)?($pattern)(<\/span>)?/i",
 		  "<span class=\"nolink\">$2</span>",
-			$content);
+				$content);
 	}
 
 	return $content;
@@ -72,12 +73,12 @@ function ltb_ask_bibleserver($options, $content) {
 
 	// POST-Daten definieren
 	$param = array(
-		'key' => $options['apikey'],
-		'text' => $content,
-		'lang' => ltb_get_locale(),
-		'trl' => $options['translation'], 
+			'key' => $options['apikey'],
+			'text' => $content,
+			'lang' => ltb_get_locale(),
+			'trl' => $options['translation'],
 	);
-    
+
 	// Doing POST-Request
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'http://www.bibleserver.com/api/parser');
@@ -85,9 +86,9 @@ function ltb_ask_bibleserver($options, $content) {
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-     
+	 
 	$result = curl_exec($ch);
-     
+	 
 	curl_close($ch);
 
 	return $result;
@@ -99,7 +100,7 @@ add_action('admin_notices', 'ltb_show_admin_notices');
 function ltb_show_admin_notices() {
 	$hash = ltb_get_transient_hash();
 	$error = get_transient($hash);
-		
+
 	if($error)
 		echo sprintf('<div id="message" class="error"><p>%s</p></div>', $error);
 
@@ -137,7 +138,7 @@ function ltb_options_page() { ?>
 					<th scope="row">Bibleserver.com API-Key</th>
 					<td>
 						<input type="text" size="60" name="ltb_options[apikey]" value="<?php echo $options['apikey']; ?>" />
-						<p class="description"><?php printf(__('The API-Key can be get %shere%s. You need to use the address of you blog (%s) as the domainname.', 'ltb'), '<a href="http://www.bibleserver.com/webmasters/#apikey" target="_blank">', '</a>', get_option('siteurl')) ?></p>
+						<p class="description"><?php printf(__('The API-Key can be get %shere%s. You need to use the address of your blog (%s) as the domainname.', 'ltb'), '<a href="http://www.bibleserver.com/webmasters/#apikey" target="_blank">', '</a>', get_option('siteurl')) ?></p>
 				</tr>
 
 				<tr>
@@ -146,7 +147,7 @@ function ltb_options_page() { ?>
 						<select name='ltb_options[translation]'>
 							<?php foreach($translations as $key => $value) { ?>
 								<option value='<?php echo $key ?>' <?php selected($key, $options['translation']); ?>><?php echo $value ?></option>
-							<? } ?>	
+							<?php } ?>	
 						</select>
 						<p class="description"><?php _e('Attention: Some bible-versions may not contain the text of the whole bible.', 'ltb') ?></p>
 					</td>
@@ -156,7 +157,7 @@ function ltb_options_page() { ?>
 					<th scope="row"><?php _e('Other settings', 'ltb') ?></th>
 					<td>
 						<!-- TODO Translations -->
-						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <? _e("Ignore False-Positives", "ltb") ?>
+						<input type="checkbox" name="ltb_options[ignore_false_positive]" value="1" <?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <?php _e("Ignore False-Positives", "ltb") ?>
 						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible-references which are no ones.', 'ltb') ?></p>
 					</td>
 				</tr>

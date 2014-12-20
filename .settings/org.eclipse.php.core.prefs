@@ -1,3 +1,2 @@
-#Sat Dec 10 21:57:50 CET 2011
 eclipse.preferences.version=1
-include_path=0;/link-to-bible\u00051;/usr/share/wordpress/wp-includes
+include_path=0;/link-to-bible\u00055;org.eclipse.dltk.USER_LIBRARY/WP_INCLUDES
