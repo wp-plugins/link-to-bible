@@ -49,6 +49,9 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 = How can I disable the linking of a bible-reference? =
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
 
+= I got the error: 'Call to undefined function curl_init()' =
+Please install the curl-library for php5 (package 'php5-curl' using debian) and restart the (apache) webserver.
+
 = I have a question =
 If you have any issues with the plugin, please write to thomas@thkuhlmann.de (german or english).
 
