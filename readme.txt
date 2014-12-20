@@ -2,13 +2,8 @@
 Contributors: Thomas Kuhlmann
 Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
-<<<<<<< .mine
 Tested up to: 4.1
 Stable tag: 1.1.3
-=======
-Tested up to: 3.9
-Stable tag: 1.1.2
->>>>>>> .r1050547
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
