@@ -3,7 +3,7 @@ Contributors: Thomas Kuhlmann
 Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 4.1
-Stable tag: 1.1.3
+Stable tag: 1.2.0
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
@@ -17,7 +17,7 @@ Bibleserver.com detects language-specifc the most common notations of bible-refe
 
 = Notes =
 - This plugin uses the webservice of bibleserver.com
-- The links to bibleserver.com are added while saving a post, because the requests to bibleserver.com are limited per day and site. 
+- The links to bibleserver.com are added while saving a post, because the requests to bibleserver.com are limited per day and site. For posts created before activating Link-To-Bible and never saved since then, the links to bibleserver.com are added when the post is viewed the first time after the activation of Link-To-Bible.  
 - Changing an already linked bible-reference (e.g. "Gen 1,2" -> "Gen 2,1"), saving the post will automatically update the link to bibleserver.com.
 - Choosing a different bible-version in the settings will not change any existing links to bibleserver.com in existing articles.
 
@@ -35,7 +35,7 @@ The following information is transmitted to bibleserver.com to add the links.<ul
 - It is published with the explicit permission of bibleserver.com (ERF Media e.V.)
 
 = Translation =
-Allthough the bible-versions at bibleserver.com are available in many different languages, the plugin itselfs is just available in english and german language. If you like to contribute a translation for another language, please contact <thomas@thkuhlmann.de> .
+Allthough the bible-versions at bibleserver.com are available in many different languages, the plugin itselfs is just available in english and german language. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
 
 == Installation ==
 
@@ -56,6 +56,9 @@ Please install the curl-library for php5 (package 'php5-curl' using debian) and 
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
 
 == Changelog ==
+
+= 1.2.0 =
+- Link-To-Bible now adds to the links to bibleserver.com already to old posts, if they are viewed the first time.
 
 = 1.1.3 =
 

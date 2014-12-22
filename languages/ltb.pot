@@ -39,3 +39,6 @@ msgstr ""
 
 msgid "Ignore False-Positives"
 msgstr ""
+
+msgId "The API-Key must be set."
+msgstr ""

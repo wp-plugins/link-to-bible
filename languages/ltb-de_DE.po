@@ -50,3 +50,6 @@ msgstr ""
 
 msgid "Ignore False-Positives"
 msgstr "Verhindere falsch-positive Verlinkungen"
+
+msgid "The API-Key must be set."
+msgstr "Der API-Key muss gesetzt werden."
