@@ -23,9 +23,9 @@ function ltb_show_post($content) {
 	global $post;
 	if(!get_post_meta($post->ID, '_ltb_processed')) {
 		wp_insert_post($post);
-		return get_post($post->ID)->post_content .  "<DIV>SAVE</DIV>";
+		return get_post($post->ID)->post_content;
 	} else {
-		return $content . "<DIV>LOAD</DIV>";
+		return $content;
 	}
 }
 
