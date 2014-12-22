@@ -32,7 +32,7 @@ The following information is transmitted to bibleserver.com to add the links.<ul
 
 = License =
 - This plugin is licensed under the GPLv3. (http://www.gnu.org/licenses/gpl.html). You can use it free of charge on your personal or commercial blog.
-- It is published with the explicit permission of bibleserver.com (ERF Media e.V.)
+- It is published with the explicit permission of bibleserver.com (ERF Medien e.V.)
 
 = Translation =
 Allthough the bible-versions at bibleserver.com are available in many different languages, the plugin itselfs is just available in english and german language. If you like to contribute a translation for another language, please contact <thomas@thkuhlmann.de> .

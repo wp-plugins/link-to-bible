@@ -11,7 +11,7 @@ Max WP Version: 4.1
 
 /*
 License: GPLv3, see 'license.txt'
-Published with the explicit approval of bibleserver.com / ERF Media e.V. (06.12.2011)
+Published with the explicit approval of bibleserver.com / ERF Medien e.V. (06.12.2011)
 */
 
 
