@@ -58,7 +58,7 @@ If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de 
 == Changelog ==
 
 = 1.2.0 =
-- Link-To-Bible now adds to the links to bibleserver.com already to old posts, if they are viewed the first time.
+- Link-To-Bible now adds the links to bibleserver.com also to old posts, when they are viewed the first time.
 
 = 1.1.3 =
 
