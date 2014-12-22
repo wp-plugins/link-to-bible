@@ -17,16 +17,14 @@ msgstr "Link To Bible Einstellungen"
 msgid ""
 "The API-Key can be get %shere%s. You need to use the address of your blog (%s) as "
 "the domainname."
-msgstr ""
-"Der API-Key kann %shier%s bezogen werden.<br>Dabei muss die URL dieses Blogs (%s) "
+msgstr "Der API-Key kann %shier%s bezogen werden.<br>Dabei muss die URL dieses Blogs (%s) "
 "als Domainname verwendet werden."
 
 msgid "Bible-Version"
 msgstr "Bibelübersetzung"
 
 msgid "Attention: Some bible-versions may not contain the text of the whole bible."
-msgstr ""
-"Achtung: Einige Bibelübersetzung enthalten nicht den vollständigen Bibeltext.<br>(Z."
+msgstr "Achtung: Einige Bibelübersetzung enthalten nicht den vollständigen Bibeltext.<br>(Z."
 "B. enthält die 'Neue Genfer Übersetzung' nur das NT und die Psalmen.)"
 
 msgid "Submit Changes"
@@ -36,7 +34,7 @@ msgid "Error while linking to bible"
 msgstr "Fehler während der Verlinkung der Bibelstellen"
 
 msgid "You need to set an API-Key"
-msgstr "Es kein API-Key gesetzt."
+msgstr "Es ist kein API-Key gesetzt."
 
 msgid "Other settings"
 msgstr "Diverses"
@@ -44,8 +42,7 @@ msgstr "Diverses"
 msgid ""
 "Some statements are detected by bibleserver.com as bible-references which are no "
 "ones."
-msgstr ""
-"Manche Ausdrücke werden von bibleserver.com fälschlicherweise als "
+msgstr "Manche Ausdrücke werden von bibleserver.com fälschlicherweise als "
 "Bibelstellenangabe erkannt."
 
 msgid "Ignore False-Positives"
@@ -53,3 +50,4 @@ msgstr "Verhindere falsch-positive Verlinkungen"
 
 msgid "The API-Key must be set."
 msgstr "Der API-Key muss gesetzt werden."
+

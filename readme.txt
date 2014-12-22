@@ -1,9 +1,9 @@
 === Link To Bible ===
 Contributors: Thomas Kuhlmann
-Tags: bible, bible-verse, bible-reference, bibleserver.com, bibelvers, bibel
+Tags: bible, bible verse, bible reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 4.1
-Stable tag: 1.1.3
+Stable tag: 2.0.1
 
 Links bible-references in posts automatically to the appropriate bible-verse(s) at bibleserver.com.
 
@@ -17,9 +17,8 @@ Bibleserver.com detects language-specifc the most common notations of bible-refe
 
 = Notes =
 - This plugin uses the webservice of bibleserver.com
-- The links to bibleserver.com are added while saving a post, because the requests to bibleserver.com are limited per day and site. For posts created before activating Link-To-Bible and never saved since then, the links to bibleserver.com are added when the post is viewed the first time after the activation of Link-To-Bible.  
+- The links to bibleserver.com are added while saving a post, because the requests to bibleserver.com are limited per day and site. For posts created before activating 'Link-To-Bible' and never saved since then, the links to bibleserver.com are added when the post is viewed the first time after the activation of Link-To-Bible.  
 - Changing an already linked bible-reference (e.g. "Gen 1,2" -> "Gen 2,1"), saving the post will automatically update the link to bibleserver.com.
-- Choosing a different bible-version in the settings will not change any existing links to bibleserver.com in existing articles.
 
 = Privacy =
 The following information is transmitted to bibleserver.com to add the links.<ul>
@@ -50,15 +49,16 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
 
 = I got the error (in the log of the webserver): 'Call to undefined function curl_init()' =
-Please install the curl-library for php5 (package 'php5-curl' using debian) and restart the (apache) webserver.
+Please install the curl-library for php5 (package 'php5-curl' using debian) and restart the webserver.
 
 = I have a question / The plugin does not work  =
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
 
 == Changelog ==
 
-= 1.2.0 =
+= 2.0.1 =
 - Link-To-Bible now adds the links to bibleserver.com also to old posts, when they are viewed the first time.
+- Link-To-Bible now changes the links if the selected bible version is changed. (The links are changed the first time the post is viewed or saved.)
 
 = 1.1.3 =
 

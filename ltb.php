@@ -1,10 +1,11 @@
 <?php
 /*
  * Plugin Name: Link To Bible
- * Description: Automatically links bible-references in posts to the appropriate bible-verse(s) at bibleserver.com
- * Version: 1.1.3
+ * Description: Automatically links bible-references in posts to the appropriate bible-verse(s) at bibleserver.com. To get started: Activate the plugin and go to the settings of 'Link To Bible' to enter an API-key.
+ * Version: 2.0.1
  * Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
  * Author: Thomas Kuhlmann
+ * Author URI: http://oss.thk-systems.de
  * Min WP Version: 3.2.1
  * Max WP Version: 4.1
  */
@@ -18,12 +19,13 @@
 load_plugin_textdomain ( 'ltb', false, basename ( dirname ( __FILE__ ) ) . '/languages' );
 
 // ---------- DOING CONTENT-FILTERING --------------------
-add_filter( 'the_content', 'ltb_show_post' );
+add_filter ( 'the_content', 'ltb_show_post' );
 function ltb_show_post($content) {
+	$options = get_option ( 'ltb_options' );
 	global $post;
-	if(!get_post_meta($post->ID, '_ltb_processed')) {
-		wp_insert_post($post);
-		return get_post($post->ID)->post_content;
+	if (! get_post_meta ( $post->ID, '_ltb_last', true ) || (get_post_meta ( $post->ID, '_ltb_translation', true ) != $options ['translation'])) {
+		wp_insert_post ( $post );
+		return ltb_add_links ( $content, true );
 	} else {
 		return $content;
 	}
@@ -32,10 +34,13 @@ function ltb_show_post($content) {
 add_filter ( 'content_save_pre', 'ltb_save_post' );
 function ltb_save_post($content) {
 	global $post;
-	update_post_meta($post->ID, '_ltb_processed', time());
-	return ltb_add_links($content);
+	$options = get_option ( 'ltb_options' );
+	update_post_meta ( $post->ID, '_ltb_last', time () );
+	update_post_meta ( $post->ID, '_ltb_translation', $options ['translation'] );
+	update_post_meta ( $post->ID, '_ltb_locale', ltb_get_locale () );
+	update_post_meta ( $post->ID, '_ltb_version', "2.0.0" );
+	return ltb_add_links ( $content );
 }
-	
 function ltb_add_links($content, $ignore_errors = false) {
 	$options = get_option ( 'ltb_options' );
 	// Filter
@@ -175,9 +180,7 @@ function ltb_options_page() {
 	</form>
 </div>
 <?php
-
 }
-
 
 // Returns the available bible-translations for the set locale
 function ltb_get_available_bible_translations() {
@@ -193,7 +196,7 @@ function ltb_get_available_bible_translations() {
 					"HFA" => "Hoffnung für alle",
 					"GNB" => "Gute Nachricht Bibel",
 					"EU" => "Einheitsübersetzung",
-					"NL" => "Neues Leben",
+					"NLB" => "Neues Leben",
 					"NeÜ" => "Neue evangelistische Übersetzung" 
 			);
 		
