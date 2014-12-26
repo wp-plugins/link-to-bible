@@ -13,7 +13,7 @@ Link-To-Bible links any bible-reference (e.g. "Genesis 20,1" (en) or "Lukas 5,3"
 
 You can hereby choose from many different bible-versions in different languages. (See http://www.bibleserver.com/webmasters/index.php for all availabe languages and versions.)
 
-Bibleserver.com detects language-specifc the most common notations of bible-references.
+Bibleserver.com detects language-specific the most common notations of bible-references.
 
 = Notes =
 - This plugin uses the webservice of bibleserver.com
@@ -34,12 +34,12 @@ The following information is transmitted to bibleserver.com to add the links.<ul
 - It is published with the explicit permission of bibleserver.com (ERF Medien e.V.)
 
 = Translation =
-Allthough the bible-versions at bibleserver.com are available in many different languages, the plugin itselfs is just available in english and german language. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
+Although the bible-versions at bibleserver.com are available in many different languages, the plugin itself is just available in english and german language. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
 
 == Installation ==
 
 1. Search for link-to-bible in your WordPress backend and click install, or download the link-to-bible.zip file and unzip it.
-2. If you downloaded the zip, upload the 'link-to-bible' folder into wp-content/plugins folder 
+2. If you have downloaded the zip, move the 'link-to-bible' folder into [WORDPRESS]/wp-content/plugins folder 
 3. Activate the plugin in your WordPress Admin area.
 4. Select "Settings" to set the API-Key for bibleserver.com and to choose a bible-version.
 
@@ -49,7 +49,7 @@ Allthough the bible-versions at bibleserver.com are available in many different 
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
 
 = I got the error (in the log of the webserver): 'Call to undefined function curl_init()' =
-Please install the curl-library for php5 (package 'php5-curl' using debian) and restart the webserver.
+Please install the curl-library for php5 (package 'php5-curl' using Debian) and restart the webserver.
 
 = I have a question / The plugin does not work  =
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
@@ -58,7 +58,7 @@ If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de 
 
 = 2.0.1 =
 - Link-To-Bible now adds the links to bibleserver.com also to old posts, when they are viewed the first time.
-- Link-To-Bible now changes the links if the selected bible version is changed. (The links are changed the first time the post is viewed or saved.)
+- Link-To-Bible now changes the links, if the selected bible version is changed. (The links are changed the first time the post is viewed or saved.)
 
 = 1.1.3 =
 
