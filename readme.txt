@@ -23,11 +23,12 @@ Bibleserver.com detects language specific the most common notations of bible ref
 - Changing an already linked bible reference (e.g. "Gen 1,2" -> "Gen 2,1"), saving the post will automatically update the link to bibleserver.com.
 
 = Privacy =
-The following information is transmitted to bibleserver.com to add the links:
-- Your API-Key
-- The URL of your blog
-- The selected bible version
-- The text of your post including all markups (and may be content or markup added by other plugins or themes)
+The following information is transmitted to bibleserver.com to add the links:<ul>
+<li>Your API-Key</li>
+<li>The URL of your blog</li>
+<li>The selected bible version</li>
+<li>The text of your post including all markups (and may be content or markup added by other plugins or themes)</li>
+</ul>
 
 = License =
 - This plugin is licensed under the GPLv3. (http://www.gnu.org/licenses/gpl.html). You can use it free of charge on your personal or commercial blog.
