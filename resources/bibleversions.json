@@ -1,0 +1,156 @@
+{
+	"ar" : {
+		"name" : "العربية",
+		"bible_versions" : {
+			"ALAB" : "التفسير التطبيقي للكتاب المقدس"
+		}
+	},
+	"bg" : {
+		"name" : "български",
+		"bible_versions" : {
+			"BLG" : "Българската Библия"
+		}
+	},
+	"cs" : {
+		"name" : "Čeština",
+		"bible_versions" : {
+			"CEP" : "Český ekumenický překlad",
+			"SNC" : "Slovo na cestu",
+			"B21" : "Bible, překlad 21. století",
+			"BKR" : "Bible Kralická"
+		}
+	},
+	"da" : {
+		"name" : "Dansk",
+		"bible_versions" : {
+			"DK" : "Bibelen på hverdagsdansk"
+		}
+	},
+	"de" : {
+		"name" : "Deutsch",
+		"bible_versions" : {
+			"SLT" : "Schlachter 2000",
+			"LUT" : "Luther 1984",
+			"NGÜ" : "Neue Genfer Übersetzung",
+			"ELB" : "Rev. Elberfelder",
+			"HFA" : "Hoffnung für alle",
+			"GNB" : "Gute Nachricht Bibel",
+			"EU" : "Einheitsübersetzung",
+			"NLB" : "Neues Leben",
+			"NeÜ" : "Neue evangelistische übersetzung"
+		}
+	},
+	"en" : {
+		"name" : "English",
+		"bible_versions" : {
+			"ESV" : "English Standard Version",
+			"NIV" : "New International Version",
+			"NIRV" : "New Int. Readers Version",
+			"KJV" : "King James Version"
+		}
+	},
+	"es" : {
+		"name" : "Español",
+		"bible_versions" : {
+			"CST" : "Version La Biblia al Dia",
+			"NVI" : "Nueva Versión Internacional",
+			"BTX" : "La Biblia Textual"
+		}
+	},
+	"fr" : {
+		"name" : "Français",
+		"bible_versions" : {
+			"BDS" : "Bible du Semeur",
+			"S21" : "Segond 21"
+		}
+	},
+	"hr" : {
+		"name" : "Hrvatski",
+		"bible_versions" : {
+			"CKK" : "Knjiga O Kristu"
+		}
+	},
+	"hu" : {
+		"name" : "Magyar",
+		"bible_versions" : {
+			"KAR" : "IBS-fordítás (Új Károli)",
+			"HUN" : "Hungarian"
+		}
+	},
+	"it" : {
+		"name" : "Italiano",
+		"bible_versions" : {
+			"ITA" : "La Parola è Vita",
+			"NRS" : "Nuova Riveduta 2006"
+		}
+	},
+	"nl" : {
+		"name" : "Nederlands",
+		"bible_versions" : {
+			"HTB" : "Het Boek"
+		}
+	},
+	"no" : {
+		"name" : "Norsk",
+		"bible_versions" : {
+			"NOR" : "En Levende Bok"
+		}
+	},
+	"pl" : {
+		"name" : "Polski",
+		"bible_versions" : {
+			"PSZ" : "Słowo Życia"
+		}
+	},
+	"pt" : {
+		"name" : "Português",
+		"bible_versions" : {
+			"PRT" : "O Livro"
+		}
+	},
+	"ro" : {
+		"name" : "Român",
+		"bible_versions" : {
+			"NTR" : "Noua traducere în limba românã"
+		}
+	},
+	"ru" : {
+		"name" : "русский",
+		"bible_versions" : {
+			"RSZ" : "Новый перевод на русский язы",
+			"CRS" : "Священное Писание"
+		}
+	},
+	"sk" : {
+		"name" : "Slovenčina",
+		"bible_versions" : {
+			"NPK" : "Nádej pre kazdého"
+		}
+	},
+	"sv" : {
+		"name" : "Svenska",
+		"bible_versions" : {
+			"BSV" : "En Levande Bok"
+		}
+	},
+	"tr" : {
+		"name" : "Türk",
+		"bible_versions" : {
+			"TR" : "Türkçe"
+		}
+	},
+	"zh" : {
+		"name" : "中国",
+		"bible_versions" : {
+			"CUVS" : "中文和合本（简体）"
+		}
+	},
+	"xx" : {
+		"name" : "*Special",
+		"bible_versions" : {
+			"OT" : "Hebrew OT",
+			"LXX" : "Septuaginta",
+			"VUL" : "Vulgata"
+		}
+	}
+}
