@@ -12,7 +12,7 @@ msgstr ""
 msgid "Link To Bible Settings"
 msgstr ""
 
-msgid "The API-Key can be get %shere%s. No registration is needed!<br>You need to use the address of your blog (%s) as the domainname."
+msgid "The API-Key can be get %shere%s. No registration is needed!<br>You need to use the address of your blog (%s) as the domainname."       
 msgstr ""
 
 msgid "Bible Version"

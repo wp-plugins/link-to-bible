@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Link To Bible
  * Description: Automatically links bible references in posts to the appropriate bible verse(s) at bibleserver.com
- * Version: 2.1.0
+ * Version: 2.1.1
  * Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
  * Author: Thomas Kuhlmann
  * Author URI: http://oss.thk-systems.de

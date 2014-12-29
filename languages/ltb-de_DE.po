@@ -14,10 +14,8 @@ msgid "Link To Bible Settings"
 msgstr "Link To Bible Einstellungen"
 
 msgid ""
-"The API-Key can be get %shere%s. No registration is needed!<br>. You need to use the address of your blog (%s) as "
-"the domainname."
-msgstr "Der API-Key kann %shier%s bezogen werden. Es ist dafür keine Registrierung notwendig!<br>Dabei muss die URL dieses Blogs (%s) "
-"als Domainname verwendet werden."
+"The API-Key can be get %shere%s. No registration is needed!<br>You need to use the address of your blog (%s) as the domainname."
+msgstr "Der API-Key kann %shier%s bezogen werden. Es ist dafür keine Registrierung notwendig!<br>Dabei muss die URL dieses Blogs (%s) als Domainname verwendet werden."
 
 msgid "Bible Language"
 msgstr "Bibelsprache"

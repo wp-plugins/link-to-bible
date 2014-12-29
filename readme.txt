@@ -3,7 +3,7 @@ Contributors: Thomas Kuhlmann
 Tags: bible, bible verse, bible reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 4.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/copyleft/gpl.html
 
@@ -24,10 +24,10 @@ Bibleserver.com detects language specific the most common notations of bible ref
 
 = Privacy =
 The following information is transmitted to bibleserver.com to add the links:<ul>
-<li>- Your API-Key</li>
-<li>- The URL of your blog</li>
-<li>- The selected bible version</li>
-<li>- The text of your post including all markups (and may be content or markup added by other plugins or themes)</li>
+<li>Your API-Key</li>
+<li>The URL of your blog</li>
+<li>The selected bible version</li>
+<li>The text of your post including all markups (and may be content or markup added by other plugins or themes)</li>
 </ul>
 
 = License =
@@ -67,6 +67,10 @@ Yes. You can set the bible version using the metadata of a post with LTB_BIBLE_V
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
 
 == Changelog ==
+
+= 2.1.1 =
+
+- Fixed typos, translation and html problems. 
 
 = 2.1.0 =
 
