@@ -68,6 +68,7 @@ If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de 
 = 2.2.0 =
 
 - Link To Bible can be disabled for a single post using metadata 'LTB_DISABLE'
+- Language for parsing bible references can be set to post's bible version or system locale (default)
 - Performance optimizations
 
 = 2.1.1 =
