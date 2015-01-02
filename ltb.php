@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Link To Bible
  * Description: Automatically links bible references in posts to the appropriate bible verse(s) at bibleserver.com
- * Version: 2.1.1
+ * Version: 2.2.0
  * Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
  * Author: Thomas Kuhlmann
  * Author URI: http://oss.thk-systems.de
@@ -19,7 +19,7 @@
 // --------------------------------------------------
 // -------- DEFINITIONS ----------------------------
 // --------------------------------------------------
-$LTB_VERSION = 21;
+$LTB_VERSION = 22;
 
 // --------------------------------------------------
 // ---------- INIT ---------------------------------
@@ -48,7 +48,7 @@ function ltb_get_transient_hash() {
 }
 
 // --------------------------------------------------
-// ----------- ACTIVATION ---------------------------
+// ----------- DE-/ACTIVATION -----------------------
 // --------------------------------------------------
 
 register_activation_hook ( __FILE__, 'ltb_on_activation' );
@@ -69,7 +69,7 @@ add_filter ( 'the_content', 'ltb_show_post' );
 function ltb_show_post($content) {
 	$options = ltb_get_options ();
 	global $post;
-	if (! get_post_meta ( $post->ID, '_ltb_last', true ) || (get_post_meta ( $post->ID, '_ltb_translation', true ) != ltb_get_bible_version ( $options, $post ))) {
+	if (! get_post_meta ( $post->ID, 'LTB_DISABLE', true ) && (! get_post_meta ( $post->ID, '_ltb_last', true ) || (get_post_meta ( $post->ID, '_ltb_translation', true ) != ltb_get_bible_version ( $options, $post )))) {
 		wp_insert_post ( $post ); // Do the filtering by saving the post to avoid side-effects with other filtering plugins
 		return ltb_add_links ( $content, $post, $options, true ); // Also use the filter here because of some filters of other plugins
 	} else {
@@ -82,11 +82,23 @@ add_filter ( 'content_save_pre', 'ltb_save_post' );
 // ... on saving a post
 function ltb_save_post($content) {
 	global $post;
-	$options = ltb_get_options ();
-	update_post_meta ( $post->ID, '_ltb_last', time () );
-	update_post_meta ( $post->ID, '_ltb_translation', ltb_get_bible_version ( $options, $post ) );
-	update_post_meta ( $post->ID, '_ltb_version', $GLOBALS ['LTB_VERSION'] );
-	return ltb_add_links ( $content, $post, $options );
+	if (! get_post_meta ( $post->ID, 'LTB_DISABLE', true )) {
+		$options = ltb_get_options ();
+		$version = ltb_get_bible_version ( $options, $post );
+		update_post_meta ( $post->ID, '_ltb_last', time () );
+		update_post_meta ( $post->ID, '_ltb_translation', $version );
+		update_post_meta ( $post->ID, '_ltb_version', $GLOBALS ['LTB_VERSION'] );
+		update_post_meta ( $post->ID, '_ltb_lang', ltb_get_language_for_bible_version ( $version, $options ) );
+		return ltb_add_links ( $content, $post, $options );
+	} else if (get_post_meta ( $post->ID, '_ltb_last', true )) {
+		delete_post_meta ( $post->ID, '_ltb_last' );
+		delete_post_meta ( $post->ID, '_ltb_translation' );
+		delete_post_meta ( $post->ID, '_ltb_version' );
+		delete_post_meta ( $post->ID, 'ltb_lang' );
+		return $content;
+	} else {
+		return $content;
+	}
 }
 
 // Add the links to the content
@@ -122,6 +134,7 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 	foreach ( $patterns as $pattern ) {
 		$content = preg_replace ( "/(<span class=.*nolink.*>)?($pattern)(<\/span>)?/i", "<span class=\"nolink\">$2</span>", $content );
 	}
+	
 	return $content;
 }
 
@@ -135,10 +148,12 @@ function ltb_ask_bibleserver($options, $content, $post) {
 		return __ ( "You need to set an API-Key", "ltb" );
 		
 		// POST-Daten definieren
+	$version = ltb_get_bible_version ( $options, $post );
 	$param = array (
 			'key' => $options ['apikey'],
 			'text' => $content,
-			'trl' => ltb_get_bible_version ( $options, $post ) 
+			'lang' => ltb_get_language_for_bible_version ( $version, $options ),
+			'trl' => $version 
 	);
 	
 	// Doing POST-Request
@@ -155,6 +170,115 @@ function ltb_ask_bibleserver($options, $content, $post) {
 	
 	return $result;
 }
+
+// ---------------------------------------------
+// ------------- OPTIONS -----------------------
+// ---------------------------------------------
+function ltb_get_options() {
+	$options = get_option ( 'ltb_options' );
+	$options = ltb_check_for_options_update ( $options );
+	return $options;
+}
+
+function ltb_check_for_options_update($options) {
+	// New installation
+	if (! $options) {
+		$options = array (
+				'ignore_false_positive' => '1' 
+		);
+		update_option ( 'ltb_options', $options );
+	}
+	// Set ltb-version
+	if (! $options ['ltbver']) {
+		$options ['ltbver'] = $GLOBALS ['LTB_VERSION'];
+		update_option ( 'ltb_options', $options );
+	}
+	// Set bible-language
+	if (! $options ['biblelang']) {
+		$options ['biblelang'] = ltb_get_locale ();
+		update_option ( 'ltb_options', $options );
+	}
+	return $options;
+}
+
+// Get locale
+function ltb_get_locale() {
+	// Check, if the language is set for ltb in globals, otherwise use system-locale, if this is not defined, use 'en' as default
+	$locale = $GLOBALS ['LTBLANG'];
+	if (empty ( $locale )) {
+		$locale = get_locale ();
+	}
+	if (empty ( $locale )) {
+		$locale = 'en';
+	}
+	// Shorten locale, because bibleserver.com needs that this way (ISO 639)
+	if ((strlen ( $locale ) > 2) and (strpos ( $locale, "_" ))) {
+		$locale = substr ( $locale, 0, strpos ( $locale, "_" ) );
+	}
+	// Check, if locale is supported by bibleserver.com, otherwise return 'en' as default locale
+	if (in_array ( $locale, array_keys ( ltb_get_masterdata () ) )) {
+		return $locale;
+	}
+	return 'en';
+}
+
+// ---------------------------------------------
+// --------------- DATA ------------------------
+// ---------------------------------------------
+function ltb_get_masterdata($jsonfile = "bibleversions.json") {
+	$json = file_get_contents ( plugin_dir_path ( __FILE__ ) . "resources/$jsonfile" );
+	return json_decode ( $json, true );
+}
+
+// Return the used bible version
+function ltb_get_bible_version($options, $post) {
+	$bibleversion = $options ['translation'];
+	if ($post) {
+		$post_bible_version = get_post_meta ( $post->ID, 'LTB_BIBLEVERSION', true );
+		if (! empty ( $post_bible_version )) {
+			$bibleversion = $post_bible_version;
+		}
+	}
+	$masterdata = ltb_get_masterdata ( "versionsmapping.json" );
+	if (array_key_exists ( $bibleversion, $masterdata )) {
+		$bibleversion = $masterdata [$bibleversion];
+	}
+	return $bibleversion;
+}
+
+// Returns the language of the given bible version
+function ltb_get_language_for_bible_version($searched_version_key, $options) {
+	if ($options ['refformatlang']) {
+		foreach ( ltb_get_masterdata () as $lang => $lang_data ) {
+			foreach ( $lang_data ['bible_versions'] as $version_key => $version_name ) {
+				if ($version_key == $searched_version_key) {
+					return $lang;
+				}
+			}
+		}
+	}
+	return ltb_get_locale ();
+}
+
+// function ltb_create_dbtables() {
+// 	global $wpdb;
+// 	$table_name = $wpdb->prefix . 'ltb_bibleverse_post';
+// 	$charset_collate = $wpdb->get_charset_collate ();
+//	
+// 	$sql = "CREATE TABLE $table_name (
+// 					`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+// 					`post_id` BIGINT(20) UNSIGNED NOT NULL,
+// 					`bible_book` INT(3) UNSIGNED NOT NULL,
+// 					`bible_chapter` INT(3) UNSIGNED,
+// 				PRIMARY KEY (`id`),
+// 				INDEX `verse_path` (`bible_book`, `bible_chapter`),
+// 				INDEX `post` (`post_id`),
+// 				UNIQUE KEY id (id)
+// 			) $charset_collate;";
+//	
+// 	require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+// 	dbDelta ( $sql );
+// }
 
 // ------------------------------------------------------
 // --------------- SETTINGS-PAGE ------------------------
@@ -241,6 +365,9 @@ function ltb_options_page() {
 				<td><input type="checkbox" name="ltb_options[ignore_false_positive]" value="1"
 					<?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <?php _e("Ignore False-Positives", "ltb")?>
 						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible references which are no ones.', 'ltb') ?></p>
+						<?php // TODO - Translate ?>
+					<br> <input type="checkbox" name="ltb_options[refformatlang]" value="1" <?php checked( 1 == $options['refformatlang'] ); ?> /> <?php _e("Use the language of a post's bible version for detecting bible references", "ltb")?>
+					<p class="description"><?php printf(__("The format of bible references depends on the used language. (e.g. English &#8594; 'Gen 1:20', German &#8594; 'Mose 1,20')<br>Therefore you can use the language of wordpress [%s] for all posts, or the language of the bible version of the particular post.", 'ltb'), ltb_get_locale())  ?></p>
 				</td>
 			</tr>
 		</table>
@@ -263,76 +390,6 @@ function ltb_plugin_action_links($links, $file) {
 		array_unshift ( $links, $ltb_links );
 	}
 	return $links;
-}
-
-// ---------------------------------------------
-// ------------- OPTIONS -----------------------
-// ---------------------------------------------
-function ltb_get_options() {
-	$options = get_option ( 'ltb_options' );
-	$options = ltb_check_for_options_update ( $options );
-	return $options;
-}
-
-function ltb_check_for_options_update($options) {
-	// New installation
-	if (! $options) {
-		$options = array (
-				'ignore_false_positive' => '1' 
-		);
-		update_option ( 'ltb_options', $options );
-	}
-	// Set ltb-version
-	if (! $options ['ltbver']) {
-		$options ['ltbver'] = $GLOBALS ['LTB_VERSION'];
-		update_option ( 'ltb_options', $options );
-	}
-	// Set bible-language
-	if (! $options ['biblelang']) {
-		$options ['biblelang'] = ltb_get_locale ();
-		update_option ( 'ltb_options', $options );
-	}
-	return $options;
-}
-
-// Get locale
-function ltb_get_locale() {
-	// Check, if the language is set for ltb in globals, otherwise use system-locale, if this is not defined, use 'en' as default
-	$locale = $GLOBALS ['LTBLANG'];
-	if (empty ( $locale )) {
-		$locale = get_locale ();
-	}
-	if (empty ( $locale )) {
-		$locale = 'en';
-	}
-	// Shorten locale, because bibleserver.com needs that this way (ISO 639)
-	if ((strlen ( $locale ) > 2) and (strpos ( $locale, "_" ))) {
-		$locale = substr ( $locale, 0, strpos ( $locale, "_" ) );
-	}
-	// Check, if locale is supported by bibleserver.com, otherwise return 'en' as default locale
-	if (in_array ( $locale, array_keys ( ltb_get_masterdata () ) )) {
-		return $locale;
-	}
-	return 'en';
-}
-
-// ---------------------------------------------
-// --------------- DATA ------------------------
-// ---------------------------------------------
-function ltb_get_masterdata() {
-	$json = file_get_contents ( plugin_dir_path ( __FILE__ ) . "resources/bibleversions.json" );
-	return json_decode ( $json, true );
-}
-
-// Return the used bible version
-function ltb_get_bible_version($options, $post) {
-	if ($post) {
-		$post_bible_version = get_post_meta ( $post->ID, 'LTB_BIBLEVERSION', true );
-		if (! empty ( $post_bible_version )) {
-			return $post_bible_version;
-		}
-	}
-	return $options ['translation'];
 }
 
 ?>

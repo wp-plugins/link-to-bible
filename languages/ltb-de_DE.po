@@ -37,7 +37,7 @@ msgid "You need to set an API-Key"
 msgstr "Es ist kein API-Key gesetzt."
 
 msgid "Other settings"
-msgstr "Diverses"
+msgstr "Sonstige Einstellungen"
 
 msgid ""
 "Some statements are detected by bibleserver.com as bible references which are no "

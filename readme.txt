@@ -3,7 +3,7 @@ Contributors: Thomas Kuhlmann
 Tags: bible, bible verse, bible reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 4.1
-Stable tag: 2.1.1
+Stable tag: 2.2.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/copyleft/gpl.html
 
@@ -37,10 +37,6 @@ The following information is transmitted to bibleserver.com to add the links:<ul
 = Translation =
 Although the bible versions at bibleserver.com are available in many different languages, the plugin itself is just available in english and german language. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
 
-= Roadmap =
-- Add network page for link-to-bible
-- Add preview of bible verse
-
 == Installation ==
 
 = Prerequisites =
@@ -56,17 +52,23 @@ Although the bible versions at bibleserver.com are available in many different l
 
 = How can I disable the linking of a bible-reference? =
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
+To disable the linking of a whole post, just add the metadata 'LTB_DISABLE' to the post. (Adding 'LTB_DISABLE' to an existing post with existing links to bibleserver.com will not remove these existing links.)
 
 = I got the error (in the log of the webserver): 'Call to undefined function curl_init()' =
 Please install the curl-library for php5 (package 'php5-curl' using Debian) and restart the webserver.
 
 = Can I set the bible version per post? =
-Yes. You can set the bible version using the metadata of a post with LTB_BIBLE_VERSION and the abbreviation codes from bibleserver.com (http://www.bibleserver.com/webmasters/), e.g. set the metadata LTB_BIBLE_VERSION=KJV to use the 'King James Version' for this post. 
+Yes. You can set the bible version using the metadata of a post with 'LTB_BIBLE_VERSION' and the abbreviation codes from bibleserver.com (http://www.bibleserver.com/webmasters/), e.g. set the metadata LTB_BIBLE_VERSION=KJV to use the 'King James Version' for this post. 
 
 = I have a question / The plugin does not work for me / I have a feature request ... =
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
 
 == Changelog ==
+
+= 2.2.0 =
+
+- Link To Bible can be disabled for a single post using metadata 'LTB_DISABLE'
+- Performance optimizations
 
 = 2.1.1 =
 
