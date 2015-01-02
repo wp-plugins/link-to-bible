@@ -56,3 +56,9 @@ msgstr "Die 'php5-curl-library' ist nicht installiert"
 
 msgid "<b>Link To Bible</b>: Please go to the %ssettings-page%s to set the API-Key and select the bible version. (No registration is needed!)"
 msgstr "<b>Link To Bible</b>: Bitte tragen Sie unter %sEinstellungen%s Ihren API-Key ein und wählen Sie Ihre Bibelübersetzung aus. (Dafür ist keine Registrierung notwendig!)"
+
+msgid "Use the language of a post's bible version for detecting bible references"
+msgstr "Die Sprache der jeweiligen Bibelübersetzung als Sprache für die Erkennung von Bibelstellenangaben benutzen"
+
+msgid "The format of bible references depends on the used language. (e.g. English &#8594; 'Gen 1:20', German &#8594; 'Mose 1,20')<br>Therefore you can use the language of wordpress [%s] for all posts, or the language of the bible version of the particular post."
+msgstr "Das Format von Bibelstellenangaben ist sprachabhängig. (z.B. Deutsch &#8594; 'Mose 1,20', Englisch &#8594; 'Gen 1:20')<br>Dafür kann die aktuelle Sprache der Wordpress-Oberfläche [%s] verwendet werden oder die Sprache der jeweiligen Bibelübersetzung."

@@ -3,7 +3,7 @@ Contributors: Thomas Kuhlmann
 Tags: bible, bible verse, bible reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 4.1
-Stable tag: 2.1.1
+Stable tag: 2.2.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/copyleft/gpl.html
 
@@ -64,6 +64,10 @@ Yes. You can set the bible version using the metadata of a post with 'LTB_BIBLE_
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
 
 == Changelog ==
+
+= 2.2.1 =
+
+- Fixed translation
 
 = 2.2.0 =
 

@@ -47,3 +47,9 @@ msgstr ""
 
 msgid "<b>Link To Bible</b>: Please go to the %ssettings-page%s to set the API-Key and select the bible version. (No registration is needed!)"
 msgstr ""
+
+msgid "Use the language of a post's bible version for detecting bible references"
+msgstr ""
+
+msgid "The format of bible references depends on the used language. (e.g. English &#8594; 'Gen 1:20', German &#8594; 'Mose 1,20')<br>Therefore you can use the language of wordpress [%s] for all posts, or the language of the bible version of the particular post."
+msgstr ""
