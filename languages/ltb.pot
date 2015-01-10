@@ -53,3 +53,9 @@ msgstr ""
 
 msgid "The format of bible references depends on the used language. (e.g. English &#8594; 'Gen 1:20', German &#8594; 'Mose 1,20')<br>Therefore you can use the language of wordpress [%s] for all posts, or the language of the bible version of the particular post."
 msgstr ""
+
+msgid "Retrieve API-Key automatically"
+msgstr ""
+
+msgid "The API-Key could not be retrieved."
+msgstr ""

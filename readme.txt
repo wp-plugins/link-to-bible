@@ -3,7 +3,7 @@ Contributors: Thomas Kuhlmann
 Tags: bible, bible verse, bible reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 4.1
-Stable tag: 2.2.1
+Stable tag: 2.3.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/copyleft/gpl.html
 
@@ -11,7 +11,7 @@ Links bible-references in posts automatically to the appropriate bible-verse(s) 
 
 == Description ==
 
-Link-To-Bible links any bible reference (e.g. "Genesis 20,1" (en) or "Lukas 5,3" (de)) you write in a post automatically to the appropriate bible verse(s) at bibleserver.com.
+Link To Bible links any bible reference (e.g. "Genesis 20:1" (en) or "Lukas 5,3" (de)) you write in a post automatically to the appropriate bible verse(s) at bibleserver.com.
 
 You can hereby choose from many different bible versions in different languages. (See http://www.bibleserver.com/webmasters/index.php for all availabe languages and bible versions.)
 
@@ -35,27 +35,19 @@ The following information is transmitted to bibleserver.com to add the links:<ul
 - It is published with the explicit permission of bibleserver.com (ERF Medien e.V.)
 
 = Translation =
-Although the bible versions at bibleserver.com are available in many different languages, the plugin itself is just available in english and german language. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
+Although the bible versions at bibleserver.com are available in many different languages, the 'Link To Bible' is just available in english and german language. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
 
 == Installation ==
-
-= Prerequisites =
-- Link-To-Bible uses the php5-curl-library (http://php.net/curl; Debian/Ubuntu/RPM-Package: 'php5-curl') - You need to restart your webserver after installing.
-
-= Steps =
 1. Search for link-to-bible in your WordPress backend and click install, or download the link-to-bible.zip file and unzip it.
 2. If you have downloaded the zip, move the 'link-to-bible' folder into [WORDPRESS]/wp-content/plugins folder 
 3. Activate the plugin in your WordPress Admin area.
-4. Select "Settings" to set the API-Key for bibleserver.com (no registration is needed!) and to choose a bible version.
+4. Select "Settings" to choose a bible version.
 
 == Frequently Asked Questions ==
 
 = How can I disable the linking of a bible-reference? =
 You can mark any text with the css-class 'nolink' to avoid linking it to bibleserver.com; e.g. <code><span class="nolink">Mt 2,10 or Gen 5,11 will not be linked to bibleserver.com</span></code>.
 To disable the linking of a whole post, just add the metadata 'LTB_DISABLE' to the post. (Adding 'LTB_DISABLE' to an existing post with existing links to bibleserver.com will not remove these existing links.)
-
-= I got the error (in the log of the webserver): 'Call to undefined function curl_init()' =
-Please install the curl-library for php5 (package 'php5-curl' using Debian) and restart the webserver.
 
 = Can I set the bible version per post? =
 Yes. You can set the bible version using the metadata of a post with 'LTB_BIBLE_VERSION' and the abbreviation codes from bibleserver.com (http://www.bibleserver.com/webmasters/), e.g. set the metadata LTB_BIBLE_VERSION=KJV to use the 'King James Version' for this post. 
@@ -64,6 +56,12 @@ Yes. You can set the bible version using the metadata of a post with 'LTB_BIBLE_
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
 
 == Changelog ==
+
+= 2.3.0 =
+- Link To Bible can now automatically retrieve the API-Key of bibleserver.com (default for new installations)
+- Removed dependency to php5-curl (it is still used, if available)
+- Updated biblelist from bibleserver.com
+- Some minor bugfixes
 
 = 2.2.1 =
 

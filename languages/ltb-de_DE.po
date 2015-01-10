@@ -62,3 +62,9 @@ msgstr "Die Sprache der jeweiligen Bibelübersetzung als Sprache für die Erkenn
 
 msgid "The format of bible references depends on the used language. (e.g. English &#8594; 'Gen 1:20', German &#8594; 'Mose 1,20')<br>Therefore you can use the language of wordpress [%s] for all posts, or the language of the bible version of the particular post."
 msgstr "Das Format von Bibelstellenangaben ist sprachabhängig. (z.B. Deutsch &#8594; 'Mose 1,20', Englisch &#8594; 'Gen 1:20')<br>Dafür kann die aktuelle Sprache der Wordpress-Oberfläche [%s] verwendet werden oder die Sprache der jeweiligen Bibelübersetzung."
+
+msgid "Retrieve API-Key automatically"
+msgstr "API-Key automatisch abrufen"
+
+msgid "The API-Key could not be retrieved."
+msgstr "Der API-Key konnte nicht abgerufen werden."

@@ -37,7 +37,7 @@
 			"GNB" : "Gute Nachricht Bibel",
 			"EU" : "Einheitsübersetzung",
 			"NLB" : "Neues Leben",
-			"NeÜ" : "Neue evangelistische übersetzung"
+			"NeÜ" : "Neue evangelistische Übersetzung"
 		}
 	},
 	"en" : {
@@ -118,7 +118,7 @@
 		"name" : "русский",
 		"bible_versions" : {
 			"RSZ" : "Новый перевод на русский язы",
-			"CRS" : "Священное Писание"
+			"CARS" : "Священное Писание, Восточный перевод"
 		}
 	},
 	"sk" : {

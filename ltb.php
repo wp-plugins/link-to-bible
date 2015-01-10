@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Link To Bible
  * Description: Automatically links bible references in posts to the appropriate bible verse(s) at bibleserver.com
- * Version: 2.2.1
+ * Version: 2.3.0
  * Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
  * Author: Thomas Kuhlmann
  * Author URI: http://oss.thk-systems.de
@@ -19,7 +19,7 @@
 // --------------------------------------------------
 // -------- DEFINITIONS ----------------------------
 // --------------------------------------------------
-$LTB_VERSION = 22;
+$LTB_VERSION = 23;
 
 // --------------------------------------------------
 // ---------- INIT ---------------------------------
@@ -107,10 +107,12 @@ function ltb_add_links($content, $post, $options, $ignore_errors = false) {
 	$result = ltb_ask_bibleserver ( $options, $content, $post );
 	
 	// Check, that there is no empty result
-	if (! $result)
+	if (! $result) {
+		set_transient ( ltb_get_transient_hash (), 'Link-To-Bible Error: Error while connecting bibleserver.com', 10 );
 		return $content;
-		
-		// Check, that the result is no error-string
+	}
+	
+	// Check, that the result is no error-string (application-level)
 	$result_start = substr ( $result, 10 );
 	if ($result_start == substr ( $content, 10 ) or (strpos ( $result_start, "<" ))) {
 		return $result;
@@ -139,36 +141,20 @@ function ltb_mark_to_ignore_false_positive($options, $content) {
 }
 
 function ltb_ask_bibleserver($options, $content, $post) {
-	// Check for installed curl-lib
-	if (! function_exists ( 'curl_init' ))
-		return (__ ( "Missing php5-curl-library", "ltb" ));
-		
-		// Check, if configured
+	// Check, if configured
 	if (! $options ['apikey'])
 		return __ ( "You need to set an API-Key", "ltb" );
 		
 		// POST-Daten definieren
 	$version = ltb_get_bible_version ( $options, $post );
-	$param = array (
+	$params = array (
 			'key' => $options ['apikey'],
 			'text' => $content,
 			'lang' => ltb_get_language_for_bible_version ( $version, $options ),
 			'trl' => $version 
 	);
 	
-	// Doing POST-Request
-	$ch = curl_init ();
-	curl_setopt ( $ch, CURLOPT_URL, 'http://www.bibleserver.com/api/parser' );
-	curl_setopt ( $ch, CURLOPT_REFERER, get_option ( 'siteurl' ) );
-	curl_setopt ( $ch, CURLOPT_POST, true );
-	curl_setopt ( $ch, CURLOPT_POSTFIELDS, $param );
-	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
-	
-	$result = curl_exec ( $ch );
-	
-	curl_close ( $ch );
-	
-	return $result;
+	return ltb_http_post_request ( 'http://www.bibleserver.com/api/parser', $params );
 }
 
 // ---------------------------------------------
@@ -184,9 +170,29 @@ function ltb_check_for_options_update($options) {
 	// New installation
 	if (! $options) {
 		$options = array (
-				'ignore_false_positive' => '1' 
+				'ignore_false_positive' => '1',
+				'refformatlang' => '1' 
 		);
 		update_option ( 'ltb_options', $options );
+	}
+	// Retrieve api-key
+	if (! $options ['apikey']) {
+		$apikey = ltb_retrieve_apikey ();
+		if ($apikey) {
+			$options ['apikey'] = $apikey;
+			$options ['aak_on'] = '1';
+			$options ['aak_domain'] = get_option ( 'siteurl' );
+			update_option ( 'ltb_options', $options );
+		}
+	}
+	// API-Key: Check for changed domain-name
+	if ($options ['aak_on'] && $options ['aak_domain'] != get_option ( 'siteurl' )) {
+		$apikey = ltb_retrieve_apikey ();
+		if ($apikey) {
+			$options ['apikey'] = $apikey;
+			$options ['aak_domain'] = get_option ( 'siteurl' );
+			update_option ( 'ltb_options', $options );
+		}
 	}
 	// Set ltb-version
 	if (! $options ['ltbver']) {
@@ -220,6 +226,21 @@ function ltb_get_locale() {
 		return $locale;
 	}
 	return 'en';
+}
+
+function ltb_retrieve_apikey() {
+	$params = array (
+			'apikey_content' => get_option ( 'siteurl' ),
+			'apikey_send' => 'API-Key+generieren' 
+	);
+	$html = ltb_http_post_request ( "http://www.bibleserver.com/webmasters/index.php#apikey", $params );
+	
+	$pattern = "/<input.*name=\"apikey_result\".*value=\"(.+)\".*\/>/";
+	if (preg_match ( $pattern, $html, $matches )) {
+		return $matches [1];
+	} else {
+		return null;
+	}
 }
 
 // ---------------------------------------------
@@ -261,23 +282,23 @@ function ltb_get_language_for_bible_version($searched_version_key, $options) {
 }
 
 // function ltb_create_dbtables() {
-// 	global $wpdb;
-// 	$table_name = $wpdb->prefix . 'ltb_bibleverse_post';
-// 	$charset_collate = $wpdb->get_charset_collate ();
-//	
-// 	$sql = "CREATE TABLE $table_name (
-// 					`id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-// 					`post_id` BIGINT(20) UNSIGNED NOT NULL,
-// 					`bible_book` INT(3) UNSIGNED NOT NULL,
-// 					`bible_chapter` INT(3) UNSIGNED,
-// 				PRIMARY KEY (`id`),
-// 				INDEX `verse_path` (`bible_book`, `bible_chapter`),
-// 				INDEX `post` (`post_id`),
-// 				UNIQUE KEY id (id)
-// 			) $charset_collate;";
-//	
-// 	require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
-// 	dbDelta ( $sql );
+// global $wpdb;
+// $table_name = $wpdb->prefix . 'ltb_bibleverse_post';
+// $charset_collate = $wpdb->get_charset_collate ();
+//
+// $sql = "CREATE TABLE $table_name (
+// `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+// `post_id` BIGINT(20) UNSIGNED NOT NULL,
+// `bible_book` INT(3) UNSIGNED NOT NULL,
+// `bible_chapter` INT(3) UNSIGNED,
+// PRIMARY KEY (`id`),
+// INDEX `verse_path` (`bible_book`, `bible_chapter`),
+// INDEX `post` (`post_id`),
+// UNIQUE KEY id (id)
+// ) $charset_collate;";
+//
+// require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+// dbDelta ( $sql );
 // }
 
 // ------------------------------------------------------
@@ -298,8 +319,20 @@ function ltb_admin_init() {
 }
 
 function ltb_validate_options($input) {
-	if (! $input ['apikey']) {
-		add_settings_error ( 'apikey', 'error', __ ( 'The API-Key must be set.', 'ltb' ) );
+	if ($input ['aak_on']) {
+		$apikey = ltb_retrieve_apikey ();
+		if ($apikey) {
+			$input ['apikey'] = $apikey;
+			$input ['aak_domain'] = get_option ( 'siteurl' );
+		} else {
+			add_settings_error ( 'apikey', 'error', __ ( 'The API-Key could not be retrieved.', 'ltb' ) );
+			$input ['apikey'] = ltb_get_options ()['apikey_man'];
+			unset ( $input ['aak_on'] );
+		}
+	} else {
+		if (! $input ['apikey']) {
+			add_settings_error ( 'apikey', 'error', __ ( 'The API-Key must be set.', 'ltb' ) );
+		}
 	}
 	return $input;
 }
@@ -311,52 +344,66 @@ function ltb_add_admin_page() {
 function ltb_options_page() {
 	$options = ltb_get_options ();
 	
+	if (! $options ['aak_on']) {
+		$options ['apikey_man'] = $options ['apikey'];
+		update_option ( 'ltb_options', $options );
+	}
+	
 	?>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		// Set bibleversions depending on selected language
+		jQuery("#langsel").on('change keyup', function() {
+			var $langsel = $(this);
+			jQuery.getJSON('<?php print plugin_dir_url ( __FILE__ ) . "resources/bibleversions.json" ?>', function(data) {
+				var $key = $langsel.val();
+				var $vals = data[$key].bible_versions;
+				var $bversel = jQuery("#bversel");
+				var $curlang = "<?php print $options['translation']; ?>";
+				$bversel.empty();
+				jQuery.each($vals, function(key, value) {
+					$bversel.append("<option value='" + key + "'" + ($curlang==key ? "selected" : "") +  ">" + value + "</option>");
+				});
+			});
+		}).trigger('change');
+		
+		// Auto-Set of API-Key
+		jQuery("#ltb_aak_cb").change(function() {
+			jQuery("#ltb_apikey_inp").prop("disabled", this.checked);
+			jQuery("#ltb_apikeynote").css("display", this.checked ? "none" : "");
+		}).trigger('change');
+	});
+</script>
 
 <div class="wrap">
 	<h2><?php _e('Link To Bible Settings', 'ltb'); ?> </h2>
 
-	<form action="options.php" method="post">
+	<form action="options.php" id="ltb_options_form" method="post">
 			<?php settings_fields('ltb_plugin_options'); ?>
 
 			<table class="form-table">
 			<tr>
 				<th scope="row">Bibleserver.com API-Key</th>
-				<td><input type="text" size="60" name="ltb_options[apikey]" value="<?php echo $options['apikey']; ?>" />
-					<p class="description"><?php printf(__('The API-Key can be get %shere%s. No registration is needed!<br>You need to use the address of your blog (%s) as the domainname.', 'ltb'), '<a href="http://www.bibleserver.com/webmasters/#apikey" target="_blank">', '</a>', get_option('siteurl')) ?></p>
+				<td><p>
+						<input type="checkbox" id="ltb_aak_cb" name="ltb_options[aak_on]" value="1" <?php checked( 1 == $options['aak_on'] ); ?> /> <?php _e("Retrieve API-Key automatically", "ltb")?>
+					</p>
+					<p>
+						<input type="text" id="ltb_apikey_inp" size="60" name="ltb_options[apikey]" value="<?php echo $options['apikey']; ?>" />
+					</p>
+					<p class="description" id="ltb_apikeynote"><?php printf(__('The API-Key can be get %shere%s. No registration is needed!<br>You need to use the address of your blog (%s) as the domainname.', 'ltb'), '<a href="http://www.bibleserver.com/webmasters/#apikey" target="_blank">', '</a>', get_option('siteurl')) ?></p>
 			
 			</tr>
 
 			<tr>
-				<th scope="row"><?php _e('Bible Language', 'ltb') ?></th>
-				<td><select id='langsel' name='ltb_options[biblelang]'>
+				<th scope="row"><?php _e('Bible Version', 'ltb') ?></th>
+				<td><p>
+						<select id='langsel' name='ltb_options[biblelang]'>
 							<?php foreach(ltb_get_masterdata() as $key => $value) { ?>
 								<option value='<?php echo $key ?>' <?php selected($key, $options['biblelang']); ?>><?php echo $value['name'] ?></option>
 							<?php } ?>	
-						</select></td>
-			</tr>
-
-			<script type="text/javascript">
-				jQuery(document).ready(function($) {
-					jQuery("#langsel").change(function() {
-						var $langsel = $(this);
-						jQuery.getJSON('<?php print plugin_dir_url ( __FILE__ ) . "resources/bibleversions.json" ?>', function(data) {
-							var $key = $langsel.val();
-							var $vals = data[$key].bible_versions;
-							var $bversel = jQuery("#bversel");
-							var $curlang = "<?php print $options['translation']; ?>";
-							$bversel.empty();
-							jQuery.each($vals, function(key, value) {
-								$bversel.append("<option value='" + key + "'" + ($curlang==key ? "selected" : "") +  ">" + value + "</option>");
-							});
-						});
-					}).trigger('change');
-				});
-			</script>
-
-			<tr>
-				<th scope="row"><?php _e('Bible Version', 'ltb') ?></th>
-				<td><select id='bversel' name='ltb_options[translation]'></select>
+						</select>&nbsp;&nbsp;&nbsp;<select id='bversel' name='ltb_options[translation]'></select>
+					</p>
 					<p class="description"><?php _e('Attention: Some bible versions may not contain the text of the whole bible.', 'ltb') ?></p></td>
 			</tr>
 
@@ -365,7 +412,6 @@ function ltb_options_page() {
 				<td><input type="checkbox" name="ltb_options[ignore_false_positive]" value="1"
 					<?php checked( 1 == $options['ignore_false_positive'] ); ?> /> <?php _e("Ignore False-Positives", "ltb")?>
 						<p class="description"><?php _e('Some statements are detected by bibleserver.com as bible references which are no ones.', 'ltb') ?></p>
-						<?php // TODO - Translate ?>
 					<br> <input type="checkbox" name="ltb_options[refformatlang]" value="1" <?php checked( 1 == $options['refformatlang'] ); ?> /> <?php _e("Use the language of a post's bible version for detecting bible references", "ltb")?>
 					<p class="description"><?php printf(__("The format of bible references depends on the used language. (e.g. English &#8594; 'Gen 1:20', German &#8594; 'Mose 1,20')<br>Therefore you can use the language of wordpress [%s] for all posts, or the language of the bible version of the particular post.", 'ltb'), ltb_get_locale())  ?></p>
 				</td>
@@ -390,6 +436,36 @@ function ltb_plugin_action_links($links, $file) {
 		array_unshift ( $links, $ltb_links );
 	}
 	return $links;
+}
+
+// ------------------------------------------------------
+// ------------------ COMMONS ---------------------------
+// ------------------------------------------------------
+function ltb_http_post_request($url, $params) {
+	if (function_exists ( 'curl_init' )) {
+		$ch = curl_init ();
+		curl_setopt ( $ch, CURLOPT_URL, $url );
+		curl_setopt ( $ch, CURLOPT_REFERER, get_option ( 'siteurl' ) );
+		curl_setopt ( $ch, CURLOPT_POST, true );
+		curl_setopt ( $ch, CURLOPT_POSTFIELDS, $params );
+		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
+		curl_setopt ( $ch, CURLOPT_USERAGENT, "Wordpress_LinkToBible_" . $GLOBALS ['LTB_VERSION'] );
+		$result = curl_exec ( $ch );
+		curl_close ( $ch );
+		return $result;
+	} else {
+		$http = array (
+				'http' => array (
+						'method' => 'POST',
+						'content' => http_build_query ( $params ),
+						'user_agent' => "Wordpress_LinkToBible_" . $GLOBALS ['LTB_VERSION'] 
+				) 
+		);
+		$ctx = stream_context_create ( $http );
+		$fp = fopen ( $url, 'rb', false, $ctx );
+		return stream_get_contents ( $fp );
+	}
+	return $result;
 }
 
 ?>
