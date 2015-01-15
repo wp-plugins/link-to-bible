@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Link To Bible
  * Description: Automatically links bible references in posts to the appropriate bible verse(s) at bibleserver.com
- * Version: 2.3.1
+ * Version: 2.3.2
  * Plugin URI: https://wordpress.org/extend/plugins/link-to-bible/
  * Author: Thomas Kuhlmann
  * Author URI: http://oss.thk-systems.de
@@ -108,7 +108,9 @@ function ltb_add_links($content, $post, $options, $ignore_errors = false) {
 	
 	// Check, that there is no empty result
 	if (! $result) {
-		set_transient ( ltb_get_transient_hash (), 'Link-To-Bible Error: Error while connecting bibleserver.com', 10 );
+		if (! $ignore_errors) {
+			set_transient ( ltb_get_transient_hash (), 'Link-To-Bible Error: Error while connecting bibleserver.com', 10 );
+		}
 		return $content;
 	}
 	
@@ -154,6 +156,7 @@ function ltb_ask_bibleserver($options, $content, $post) {
 			'trl' => $version 
 	);
 	
+	// return ltb_http_post_request ( 'http://www.thomas-kuhlmann.de/php/ltb-log.php', $params );
 	return ltb_http_post_request ( 'http://www.bibleserver.com/api/parser', $params );
 }
 
@@ -349,7 +352,6 @@ function ltb_options_page() {
 		$options ['apikey_man'] = $options ['apikey'];
 		update_option ( 'ltb_options', $options );
 	}
-	
 	?>
 
 <script type="text/javascript">
@@ -459,14 +461,16 @@ function ltb_http_post_request($url, $params) {
 				'http' => array (
 						'method' => 'POST',
 						'content' => http_build_query ( $params ),
-						'user_agent' => "Wordpress_LinkToBible_" . $GLOBALS ['LTB_VERSION'] 
+						'user_agent' => "Wordpress_LinkToBible_" . $GLOBALS ['LTB_VERSION'],
+						'header' => "Referer: " . get_option ( 'siteurl' ) 
 				) 
 		);
 		$ctx = stream_context_create ( $http );
 		$fp = fopen ( $url, 'rb', false, $ctx );
-		return stream_get_contents ( $fp );
+		$result = stream_get_contents ( $fp );
+		fclose ( $fp );
+		return $result;
 	}
-	return $result;
 }
 
 ?>

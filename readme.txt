@@ -3,7 +3,7 @@ Contributors: Thomas Kuhlmann
 Tags: bible, bible verse, bible reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
 Tested up to: 4.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/copyleft/gpl.html
 
@@ -56,6 +56,9 @@ Yes. You can set the bible version using the metadata of a post with 'LTB_BIBLE_
 If you have any issues with the plugin, please write to mail@thomas-kuhlmann.de (german or english).
 
 == Changelog ==
+
+= 2.3.2 =
+- Fixed bug regarding http-post-request without php5-curl.
 
 = 2.3.1 =
 - Fixed bug regarding compatibility to PHP 5.3 (The plugin is now tested with PHP 5.2, 5.3, 5.4, 5.5 and 5.6)
