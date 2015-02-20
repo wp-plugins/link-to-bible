@@ -19,7 +19,7 @@ Bibleserver.com detects language specific the most common notations of bible ref
 
 = Notes =
 - This plugin uses the webservice of bibleserver.com
-- The links to bibleserver.com are added while saving a post, because the requests to bibleserver.com are limited per day and site. For posts created before activating 'Link-To-Bible' and never saved since then, the links to bibleserver.com are added when the post is viewed the first time after the activation of Link-To-Bible.  
+- The links to bibleserver.com are added while saving a post, because the requests to bibleserver.com are limited per day and site. For posts created before activating 'Link-To-Bible' and never saved since then, the links to bibleserver.com are added when the post is viewed the first time.  
 - Changing an already linked bible reference (e.g. "Gen 1,2" -> "Gen 2,1"), saving the post will automatically update the link to bibleserver.com.
 
 = Privacy =
@@ -35,7 +35,7 @@ The following information is transmitted to bibleserver.com to add the links:<ul
 - It is published with the explicit permission of bibleserver.com (ERF Medien e.V.)
 
 = Translation =
-Although the bible versions at bibleserver.com are available in many different languages, the 'Link To Bible' is just available in english and german language. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
+Although the bible versions at bibleserver.com are available in many different languages, 'Link To Bible' itself is just available in English and German. If you would like to contribute a translation for another language, please contact <mail@thomas-kuhlmann.de> .
 
 == Installation ==
 1. Search for link-to-bible in your WordPress backend and click install, or download the link-to-bible.zip file and unzip it.

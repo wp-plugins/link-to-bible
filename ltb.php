@@ -284,26 +284,6 @@ function ltb_get_language_for_bible_version($searched_version_key, $options) {
 	return ltb_get_locale ();
 }
 
-// function ltb_create_dbtables() {
-// global $wpdb;
-// $table_name = $wpdb->prefix . 'ltb_bibleverse_post';
-// $charset_collate = $wpdb->get_charset_collate ();
-//
-// $sql = "CREATE TABLE $table_name (
-// `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-// `post_id` BIGINT(20) UNSIGNED NOT NULL,
-// `bible_book` INT(3) UNSIGNED NOT NULL,
-// `bible_chapter` INT(3) UNSIGNED,
-// PRIMARY KEY (`id`),
-// INDEX `verse_path` (`bible_book`, `bible_chapter`),
-// INDEX `post` (`post_id`),
-// UNIQUE KEY id (id)
-// ) $charset_collate;";
-//
-// require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
-// dbDelta ( $sql );
-// }
-
 // ------------------------------------------------------
 // --------------- SETTINGS-PAGE ------------------------
 // ------------------------------------------------------
@@ -347,7 +327,8 @@ function ltb_add_admin_page() {
 
 function ltb_options_page() {
 	$options = ltb_get_options ();
-	
+
+	// Save manually entered api-key
 	if (! $options ['aak_on']) {
 		$options ['apikey_man'] = $options ['apikey'];
 		update_option ( 'ltb_options', $options );
