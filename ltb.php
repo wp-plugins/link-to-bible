@@ -7,7 +7,6 @@
  * Author: Thomas Kuhlmann
  * Author URI: http://oss.thk-systems.de
  * Min WP Version: 3.2.1
- * Max WP Version: 4.1
  * Text Domain: ltb
  */
 

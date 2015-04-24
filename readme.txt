@@ -2,7 +2,7 @@
 Contributors: Thomas Kuhlmann
 Tags: bible, bible verse, bible reference, bibleserver.com, bibelvers, bibel
 Requires at least: 3.2.1
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: 2.3.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/copyleft/gpl.html
